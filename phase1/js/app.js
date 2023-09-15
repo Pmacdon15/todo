@@ -1,4 +1,5 @@
 $(document).ready(function() {
+$("#newTask").focus();
     // Define the click event handler for the "Add" button
     $("#addButton").click(function() {
         // Get the task input value
@@ -26,6 +27,7 @@ $(document).ready(function() {
             completeButton.remove();
 
             $("#doneList").append(listlItemComplete);
+            
         });
         
         // Add the list item to the todoList
@@ -34,4 +36,12 @@ $(document).ready(function() {
         // Clear the task input
         taskInput.val("");
     });
+
+    // Add keypress event listener to taskInput
+    $("#newTask").keypress(function(event) {
+        if (event.keyCode === 13) {
+            $("#addButton").click();
+        }
+    });
 });
+
