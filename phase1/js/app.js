@@ -25,9 +25,8 @@ $("#newTask").focus();
             let listlItemComplete = listItem.css("text-decoration", "line-through");
             // Remove the "Complete" button
             completeButton.remove();
-
-            $("#doneList").append(listlItemComplete);
-            
+            // Remove the "Remove" button
+            $("#doneList").append(listlItemComplete);            
         });
         
         // Add the list item to the todoList
@@ -37,7 +36,7 @@ $("#newTask").focus();
         taskInput.val("");
     });
 
-    // Add keypress event listener to taskInput
+    // Add keypress "enter" event listener to taskInput
     $("#newTask").keypress(function(event) {
         if (event.keyCode === 13) {
             $("#addButton").click();
