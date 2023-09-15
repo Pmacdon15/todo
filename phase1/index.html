@@ -11,39 +11,27 @@
 
 
 <body>
-    <h1>
-        ToDo
-    </h1>
-    <ul id="todoList">
-        <li>
-            This is a list item
-        </li>
-    </ul>
-    <form action="addTodo" method="post" id="addTodoForm">
-        <input type="text" name="item" id="newTask">
-        <input type="button" id="addButton" value="Add" onclick="addTodo()">
-    </form>
-    <script>
-         $(document).ready(function() {
-            // Define the click event handler for the "Add" button
-            $("#addButton").click(function() {
-                // Get the task input value
-                let taskInput = $("#newTask");
-                let task = taskInput.val();
+    <header>
+        <h1>
+            ToDo
+        </h1>
+    </header>
+    <main>
+        <section>           
+        <ul id="todoList">
+            <li>
+                This is a list item
+            </li>
+        </ul>
+        <form action="addTodo" method="post" id="addTodoForm">
+            <input type="text" name="item" id="newTask">
+            <input type="button" id="addButton" value="Add" onclick="addTodo()">
+        </form>  
+        <ul id="doneList">
 
-                // Create a new list item
-                let listItem = $("<li>").text(task);
-
-                // Add the list item to the todoList
-                $("#todoList").append(listItem);
-
-                // Clear the task input
-                taskInput.val("");
-            });
-        });
-    </script
-    
-       
+        </ul> 
+        </section>
+    </main>
 
 </body>
 </html>
