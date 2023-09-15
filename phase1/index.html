@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+    <link rel="stylesheet" href="./css/stylesheet.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/app.js"></script>
+</head>
+
+
+<body>
+    <h1>
+        ToDo
+    </h1>
+    <ul id="todoList">
+        <li>
+            This is a list item
+        </li>
+    </ul>
+    <form action="addTodo" method="post" id="addTodoForm">
+        <input type="text" name="item" id="newTask">
+        <input type="button" id="addButton" value="Add" onclick="addTodo()">
+    </form>
+    <script>
+         $(document).ready(function() {
+            // Define the click event handler for the "Add" button
+            $("#addButton").click(function() {
+                // Get the task input value
+                let taskInput = $("#newTask");
+                let task = taskInput.val();
+
+                // Create a new list item
+                let listItem = $("<li>").text(task);
+
+                // Add the list item to the todoList
+                $("#todoList").append(listItem);
+
+                // Clear the task input
+                taskInput.val("");
+            });
+        });
+    </script
+    
+       
+
+</body>
+</html>
