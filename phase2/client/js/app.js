@@ -5,21 +5,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
     loadTodos();
     console.log("DOM fully loaded and parsed");
-
+  
     // Functions below --------------------------------------------------
-
+  
     function createListItem(todo, parentList) {
       const li = document.createElement("li");
       li.innerText = todo.title + " - " + todo.description;
-        
-      
+  
       // Create a completed button if the todo is not completed
       const completedButton = document.createElement("button");
       completedButton.innerText = "Completed";
       completedButton.addEventListener("click", () => {
         completedTodo(todo.id);
       });
-
+  
       if (!todo.completed) {
         li.appendChild(completedButton);
       }
@@ -54,27 +53,31 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Data.todo is not an array:", data.todo);
           }
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          console.error(error);
+        });
     }
-
+  
     function completedTodo(todoId) {
-        fetch(`/todo/${todoId}`, {
-            method: "PUT",
+      fetch(`/todo/${todoId}`, {
+        method: "PUT",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          // You can refresh the lists after completing a todo if needed
+          // For example, you can clear the lists and re-fetch the data
         })
-            .then((response) => response.json())
-            .then((data) => {
-            console.log(data);
-            // You can refresh the lists after completing a todo if needed
-            // For example, you can clear the lists and re-fetch the data
-            })
-            .catch((error) => console.error(error));
-    
-        // todo convert to jquery
-        taskList.innerHTML = "";
-        completedList.innerHTML = "";
-    
-        loadTodos();
-        }
+        .catch((error) => {
+          console.error(error);
+        });
+  
+      // todo convert to jquery
+      taskList.innerHTML = "";
+      completedList.innerHTML = "";
+  
+      loadTodos();
+    }
   
     function deleteTodo(todoId) {
       fetch(`/todo/${todoId}`, {
@@ -86,7 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
           // You can refresh the lists after deleting a todo if needed
           // For example, you can clear the lists and re-fetch the data
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          console.error(error);
+        });
   
       // todo convert to jquery
       taskList.innerHTML = "";
