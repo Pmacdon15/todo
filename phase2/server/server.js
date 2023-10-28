@@ -9,6 +9,7 @@ const {
   getTodos,
   getTodo,
   createTodo,
+  completedTodoById,
   deleteTodoById,
 } = require("./database.js");
 
@@ -40,6 +41,14 @@ app.post("/todo", async (req, res) => {
   const todos = await getTodo(); 
   console.log("todo id: " + todo.id + " created");
   res.status(201).json({ todo, todos });
+});
+
+app.put("/todo/:id", async (req, res) => {
+  const id = req.params.id;
+  const result = await completedTodoById(id);
+  const todo = await getTodos();
+  console.log("todo id: " + id + " completed");
+  res.status(200).json({ result, todo });
 });
 
 app.delete("/todo/:id", async (req, res) => {

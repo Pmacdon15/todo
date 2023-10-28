@@ -32,6 +32,12 @@ module.exports = {
     return module.exports.getTodo(id); 
   },
   
+  //todo: testing
+  async completedTodoById(id) {
+    const result = await pool.query("UPDATE todo SET completed = ? WHERE id = ?", [true, id]);
+    return result[0];
+  },
+  
   async deleteTodoById(id) {
     const result = await pool.query("DELETE FROM todo WHERE id = ?", [id]);
     return result[0];
