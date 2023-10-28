@@ -32,11 +32,25 @@ module.exports = {
     return module.exports.getTodo(id); 
   },  
   
+  // working only can complete once
+  // async completedTodoById(id) {
+  //   const result = await pool.query("UPDATE todo SET completed = ? WHERE id = ?", [true, id]);
+  //   return result[0];
+  // },
+
+  // works but pulls warning 
+  // async completedTodoById(id) {
+  //   const result = await pool.query("UPDATE todo SET completed = !completed WHERE id = ?", [id]);
+  //   console.log(result);    
+  //   return result[0];
+  // },
   async completedTodoById(id) {
-    const result = await pool.query("UPDATE todo SET completed = ? WHERE id = ?", [true, id]);
+    const result = await pool.query("UPDATE todo SET completed = NOT completed WHERE id = ?", [id]);
+    //console.log(result);    
     return result[0];
   },
   
+
   async deleteTodoById(id) {
     const result = await pool.query("DELETE FROM todo WHERE id = ?", [id]);
     return result[0];

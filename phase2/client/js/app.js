@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const completedList = document.getElementById("completedList");
   const form = document.getElementById("addTodoForm");
 
-  
-
   loadTodos();
   console.log("DOM fully loaded and parsed");
 
@@ -12,40 +10,49 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", function (event) {
     // Prevent the default form submission behavior
     event.preventDefault();
-  
+
     // Call the addTodo function
     addTodo();
   });
+
   // Functions below --------------------------------------------------
 
   function createListItem(todo, parentList) {
     const li = document.createElement("li");
-    li.innerText = todo.title + " - " + todo.description;
-
+  
     // Create a completed button if the todo is not completed
-    const completedButton = document.createElement("button");
-    completedButton.innerText = "Completed";
-    completedButton.addEventListener("click", () => {
+    const completedCheckbox = document.createElement("input");
+    completedCheckbox.type = "checkbox";
+    completedCheckbox.checked = todo.completed; // Set the initial checked state based on the todo's completion status
+    completedCheckbox.addEventListener("change", () => {
+      // Call the completedTodo function when the checkbox state changes
       completedTodo(todo.id);
     });
-
-    if (!todo.completed) {
-      li.appendChild(completedButton);
-    }
-
+  
+    // Append the checkbox to the list item before the text
+    li.appendChild(completedCheckbox);
+  
+    // Create a text span to display the title and description
+    const textSpan = document.createElement("span");
+    textSpan.innerText = todo.title + " - " + todo.description;
+  
+    // Append the text span to the list item after the checkbox
+    li.appendChild(textSpan);
+  
     // Create a delete button
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
     deleteButton.addEventListener("click", () => {
       deleteTodo(todo.id);
     });
-
-    // Append the delete button to the list item
+  
+    // Append the delete button to the list item after the text
     li.appendChild(deleteButton);
-
+  
     // Append the list item to the specified parent list
     parentList.appendChild(li);
   }
+  
 
   function loadTodos() {
     fetch("/todo")

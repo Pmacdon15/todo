@@ -31,17 +31,6 @@ const {
 
 app.get("/todo", async (req, res) => {
   const todo = await getTodos();
-
-  // if (req.accepts("html")) {
-  //   // Send HTML response
-  //   res.sendFile(path.join(__dirname, "/client_side/todo.html"));
-  // } else if (req.accepts("json")) {
-  //   // Send JSON response
-  //   res.json({ todo });
-  // } else {
-  //   // Handle other formats (optional)
-  //   res.status(406).send("Not Acceptable");
-  // }
   res.json({ todo });
 });
 
