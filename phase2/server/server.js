@@ -66,7 +66,8 @@ app.put("/todo/:id", async (req, res) => {
   const id = req.params.id;
   const result = await completedTodoById(id);
   const todo = await getTodos();
-  console.log("todo id: " + id + " completed");
+  //console.log("todo id: " + id + " completed");
+  //console.log(result);
   res.status(200).json({ result, todo });
 });
 

@@ -30,9 +30,8 @@ module.exports = {
     );
     const id = result[0].insertId;
     return module.exports.getTodo(id); 
-  },
+  },  
   
-  //todo: testing
   async completedTodoById(id) {
     const result = await pool.query("UPDATE todo SET completed = ? WHERE id = ?", [true, id]);
     return result[0];
