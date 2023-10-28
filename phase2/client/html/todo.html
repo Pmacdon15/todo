@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>ToDo</title>
-    <link rel="stylesheet" href="./css/stylesheet.css">
+    <!-- <link rel="stylesheet" href="./css/stylesheet.css"> -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="./js/app.js"></script>
+    <script src="js/app.js"></script>
 </head>
 
 
@@ -22,10 +22,11 @@
             <!-- Content will populate here            -->
         </ul>
         <form action="createTodo" method="post" id="addTodoForm">
-            <input type="text" name="item" id="newTask">
+            <input type="text" name="title" id="title" value="title">
+            <input type="text" name="description" id="description" value="description">
             <input type="button" id="addButton" value="Add" >
         </form>  
-        <ul id="doneList">
+        <ul id="completedList">
             <!-- After you click complete, the task will be moved here -->
         </ul> 
         </section>

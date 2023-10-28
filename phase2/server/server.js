@@ -5,6 +5,25 @@ const path = require("path");
 
 app.use(express.json());
 
+// Add routes here
+// Serve the entire "client" directory as static content
+//app.use(express.static(path.join(__dirname, "../client/js")));
+// app.use(
+//   "/client/js",
+//   express.static(path.join(__dirname, "../client/js"))
+// );
+
+app.get("/js/app.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/js/app.js"));
+});
+
+
+
+// add route for /
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/html/todo.html"));
+});
+
 const {
   getTodos,
   getTodo,
@@ -58,7 +77,6 @@ app.delete("/todo/:id", async (req, res) => {
   console.log("todo id: " + id + " deleted");
   res.status(200).json({ result, todo });
 });
-
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

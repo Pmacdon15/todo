@@ -22,11 +22,11 @@ $(document).ready(function () {
 
     // Define click event handler for the "Complete" button
     completeButton.click(function () {
-      let listlItemComplete = listItem.css("text-decoration", "line-through");
+      let listItemComplete = listItem.css("text-decoration", "line-through");
       // Remove the "Complete" button
       completeButton.remove();
       // Remove the "Remove" button
-      $("#doneList").append(listlItemComplete);
+      $("#doneList").append(listItemComplete);
     });
 
     // Add the list item to the todoList
