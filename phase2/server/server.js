@@ -17,9 +17,6 @@ app.get("/js/app.js", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/js/app.js"));
 });
 
-
-
-// add route for /
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });

@@ -3,9 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const completedList = document.getElementById("completedList");
   const form = document.getElementById("addTodoForm");
 
+  
+
   loadTodos();
   console.log("DOM fully loaded and parsed");
 
+  // Event listeners below --------------------------------------------
+  form.addEventListener("submit", function (event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+  
+    // Call the addTodo function
+    addTodo();
+  });
   // Functions below --------------------------------------------------
 
   function createListItem(todo, parentList) {
@@ -52,6 +62,32 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           console.error("Data.todo is not an array:", data.todo);
         }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  function addTodo() {
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const todo = { title, description };
+
+    fetch("/todo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todo),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // todo convert to jquery
+        taskList.innerHTML = "";
+        completedList.innerHTML = "";
+
+        loadTodos();
       })
       .catch((error) => {
         console.error(error);
