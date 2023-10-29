@@ -42,7 +42,7 @@ MYSQL_PASSWORD=' '
 MYSQL_DATABASE='todo_app'
 
 ```
-The .env file should be located inside of /phase2/server
+The .env file should be located inside of root directory of the project.
 There is a file in the repository named schema.sql that has the configuration for the My Sql database. simply copy this code in to the mysql terminal after logging in to configure the database.
 
  
