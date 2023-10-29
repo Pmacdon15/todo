@@ -31,8 +31,33 @@ git clone https://github.com/Pmacdonald15/todo
 
  ### Requirements
 
- All node modules are saved in this repository so there is no need To install any modules just simply clone the repository. For easy installation it is recommended you have git installed.
- This project Requires a.Env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
+For easy cloning it is recommended you have git installed. Next we will need to install the Node Modules, I will list them here:
+
+```powershell
+
+npm install node
+
+```
+
+```powershell
+
+npm install express
+
+```
+
+```powershell
+
+npm install mysql2
+
+```
+
+```powershell
+
+npm install dotenv
+
+```
+
+This project Requires a.Env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
 
  ```.env
 
