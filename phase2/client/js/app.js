@@ -14,31 +14,31 @@ $(document).ready(function () {
 
   // Functions below --------------------------------------------------
 
-  function createListItem(todo, parentList) {
-    const li = $("<li></li>");
+function createListItem(todo, parentList) {
+    const li = $("<li></li>").addClass("list-group-item");
 
     const completedCheckbox = $("<input type='checkbox'>")
-      .prop("checked", todo.completed)
-      .on("change", function () {
-        completedTodo(todo.id);
-      });
+        .prop("checked", todo.completed)
+        .on("change", function () {
+            completedTodo(todo.id);
+        });
 
     li.append(completedCheckbox);
 
     const textSpan = $("<span></span>").text(
-      todo.title + " - " + todo.description
+        todo.title + " - " + todo.description
     );
 
     li.append(textSpan);
 
-    const deleteButton = $("<button>Delete</button>").on("click", function () {
-      deleteTodo(todo.id);
+    const deleteButton = $("<button>Delete</button>").addClass("btn btn-primary").on("click", function () {
+        deleteTodo(todo.id);
     });
 
     li.append(deleteButton);
 
     parentList.append(li);
-  }
+}
 
   function loadTodos() {
     $.get("/todo", function (data) {
@@ -62,17 +62,24 @@ $(document).ready(function () {
     const title = $("#title").val();
     const description = $("#description").val();
     const todo = { title, description };
-
-    $.post("/todo", JSON.stringify(todo), function (data) {
-      console.log(data);
-      taskList.empty();
-      completedList.empty();
-      loadTodos();
-    }).fail(function (error) {
-      console.error(error);
+  
+    $.ajax({
+      url: "/todo",
+      type: "POST",
+      contentType: "application/json", // Set the content type for JSON
+      data: JSON.stringify(todo), // Serialize the todo object to JSON
+      success: function (data) {
+        console.log(data);
+        taskList.empty();
+        completedList.empty();
+        loadTodos();
+      },
+      error: function (error) {
+        console.error(error);
+      },
     });
   }
-
+  
   function completedTodo(todoId) {
     $.ajax({
       url: `/todo/${todoId}`,
