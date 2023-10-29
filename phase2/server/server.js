@@ -9,6 +9,10 @@ app.get("/js/app.js", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/js/app.js"));
 });
 
+app.get("/css/stylesheet.css", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/css/stylesheet.css"));
+});
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
@@ -107,7 +111,7 @@ app.listen(4455, () => {
         
         \x1b[34mLocal links:\x1b[0m
 
-        \x1b[33m \u{1F5F9}\x1b[0m http://localhost:44555
+        \x1b[33m \u{1F5F9}\x1b[0m http://localhost:4455
         \x1b[33m \u{1F5F9}\x1b[0m http://${localIpAddress}:4455
         
         \x1b[0m`);
