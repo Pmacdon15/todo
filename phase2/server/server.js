@@ -86,8 +86,15 @@ for (const interfaceName in interfaces) {
   }
 }
 
+//console.clear();
 // Display server address to admin in terminal
 app.listen(4455, () => {
+  if (process.platform === 'win32') {
+    console.log('\x1B[2J\x1B[3J\x1Bc'); // Clear the terminal (Windows Command Prompt)
+  } else {
+    console.log('\x1Bc'); // Clear the terminal (Unix-like terminals)
+  }
+
   console.log(`\x1b[31m
     ___________        .___          _____                 
     \\__    ___/___   __| _/____     /  _  \\ ______ ______  
