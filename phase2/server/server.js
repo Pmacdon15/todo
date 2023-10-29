@@ -70,6 +70,35 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
+// for output addresses
+const os = require('os');
+const interfaces = os.networkInterfaces();
+let localIpAddress;
+
+for (const interfaceName in interfaces) {
+  const interface = interfaces[interfaceName];
+  for (const address of interface) {
+    if (address.family === 'IPv4' && !address.internal) {
+      localIpAddress = address.address;
+      break; // If you want to stop after finding the first local IP address
+    }
+  }
+}
+
 app.listen(4455, () => {
-  console.log("App listening on port 4455");
+  console.log(`\x1b[31m
+    ___________        .___          _____                 
+    \\__    ___/___   __| _/____     /  _  \\ ______ ______  
+      |    | /  _ \\ / __ |/  _ \\   /  /_\\  \\\\____ \\\\____ \\ 
+      |    |(  <_> ) /_/ (  <_> ) /    |    \\  |_> >  |_> >
+      |____| \\____/\\____ |\\____/  \\____|__  /   __/|   __/ 
+                        \\/                \\/|__|   |__|
+  \x1b[0m\x1b[32m  
+          listening on port 4455\x1b[0m\x1b[37m
+          
+          Local links:
+          http://localhost:4455
+          http://${localIpAddress}:4455
+          
+          \x1b[0m`);
 });
