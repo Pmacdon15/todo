@@ -17,8 +17,8 @@ $(document).ready(function () {
 function createListItem(todo, parentList) {
     const li = $("<li></li>").addClass("list-group-item");
 
-    const completedCheckbox = $("<input type='checkbox'>")
-        .prop("checked", todo.completed)
+    const completedCheckbox = $("<input type='checkbox'>").addClass("form-check-input")
+        .prop("checked", todo.completed)  
         .on("change", function () {
             completedTodo(todo.id);
         });
@@ -26,12 +26,12 @@ function createListItem(todo, parentList) {
     li.append(completedCheckbox);
 
     const textSpan = $("<span></span>").text(
-        todo.title + " - " + todo.description
+        " " + todo.title + " " + " - " + " " +todo.description + " " 
     );
 
     li.append(textSpan);
 
-    const deleteButton = $("<button>Delete</button>").addClass("btn btn-primary").on("click", function () {
+    const deleteButton = $("<button>Delete</button>").addClass("btn btn-outline-primary btn-sm").on("click", function () {
         deleteTodo(todo.id);
     });
 
