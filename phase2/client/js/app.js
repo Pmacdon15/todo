@@ -4,7 +4,7 @@ $(document).ready(function () {
   const form = $("#addTodoForm");
 
   loadTodos();
-  console.log("DOM fully loaded and parsed");
+  //console.log("DOM fully loaded and parsed");
 
   // Event listeners below --------------------------------------------
   form.on("submit", function (event) {
