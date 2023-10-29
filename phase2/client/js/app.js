@@ -1,65 +1,47 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const taskList = document.getElementById("todoList");
-  const completedList = document.getElementById("completedList");
-  const form = document.getElementById("addTodoForm");
-
-  loadTodos();
-  console.log("DOM fully loaded and parsed");
-
-  // Event listeners below --------------------------------------------
-  form.addEventListener("submit", function (event) {
-    // Prevent the default form submission behavior
-    event.preventDefault();
-
-    // Call the addTodo function
-    addTodo();
-  });
-
-  // Functions below --------------------------------------------------
-
-  function createListItem(todo, parentList) {
-    const li = document.createElement("li");
+$(document).ready(function () {
+    const taskList = $("#todoList");
+    const completedList = $("#completedList");
+    const form = $("#addTodoForm");
   
-    // Create a completed button if the todo is not completed
-    const completedCheckbox = document.createElement("input");
-    completedCheckbox.type = "checkbox";
-    completedCheckbox.checked = todo.completed; // Set the initial checked state based on the todo's completion status
-    completedCheckbox.addEventListener("change", () => {
-      // Call the completedTodo function when the checkbox state changes
-      completedTodo(todo.id);
+    loadTodos();
+    console.log("DOM fully loaded and parsed");
+  
+    // Event listeners below --------------------------------------------
+    form.on("submit", function (event) {
+      event.preventDefault();
+      addTodo();
     });
   
-    // Append the checkbox to the list item before the text
-    li.appendChild(completedCheckbox);
+    // Functions below --------------------------------------------------
+    
+    function createListItem(todo, parentList) {
+      const li = $("<li></li>");
+    
+      const completedCheckbox = $("<input type='checkbox'>")
+        .prop("checked", todo.completed)
+        .on("change", function () {
+          completedTodo(todo.id);
+        });
+    
+      li.append(completedCheckbox);
+    
+      const textSpan = $("<span></span>").text(todo.title + " - " + todo.description);
+    
+      li.append(textSpan);
+    
+      const deleteButton = $("<button>Delete</button>").on("click", function () {
+        deleteTodo(todo.id);
+      });
+    
+      li.append(deleteButton);
+    
+      parentList.append(li);
+    }
   
-    // Create a text span to display the title and description
-    const textSpan = document.createElement("span");
-    textSpan.innerText = todo.title + " - " + todo.description;
-  
-    // Append the text span to the list item after the checkbox
-    li.appendChild(textSpan);
-  
-    // Create a delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.innerText = "Delete";
-    deleteButton.addEventListener("click", () => {
-      deleteTodo(todo.id);
-    });
-  
-    // Append the delete button to the list item after the text
-    li.appendChild(deleteButton);
-  
-    // Append the list item to the specified parent list
-    parentList.appendChild(li);
-  }
-  
-
-  function loadTodos() {
-    fetch("/todo")
-      .then((response) => response.json())
-      .then((data) => {
+    function loadTodos() {
+      $.get("/todo", function (data) {
         if (Array.isArray(data.todo)) {
-          data.todo.forEach((todo) => {
+          data.todo.forEach(function (todo) {
             if (todo.completed) {
               createListItem(todo, completedList);
             } else {
@@ -69,71 +51,56 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           console.error("Data.todo is not an array:", data.todo);
         }
-      })
-      .catch((error) => {
+      }).fail(function (error) {
         console.error(error);
       });
-  }
-
-  function addTodo() {
-    const title = document.getElementById("title").value;
-    const description = document.getElementById("description").value;
-    const todo = { title, description };
-
-    fetch("/todo", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(todo),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    }
+  
+    function addTodo() {
+      const title = $("#title").val();
+      const description = $("#description").val();
+      const todo = { title, description };
+  
+      $.post("/todo", JSON.stringify(todo), function (data) {
         console.log(data);
-        // todo convert to jquery
-        taskList.innerHTML = "";
-        completedList.innerHTML = "";
-
+        taskList.empty();
+        completedList.empty();
         loadTodos();
-      })
-      .catch((error) => {
+      }).fail(function (error) {
         console.error(error);
       });
-  }
-
-  function completedTodo(todoId) {
-    fetch(`/todo/${todoId}`, {
-      method: "PUT",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // todo convert to jquery
-        taskList.innerHTML = "";
-        completedList.innerHTML = "";
-
-        loadTodos();
-      })
-      .catch((error) => {
-        console.error(error);
+    }
+  
+    function completedTodo(todoId) {
+      $.ajax({
+        url: `/todo/${todoId}`,
+        type: "PUT",
+        success: function (data) {
+          console.log(data);
+          taskList.empty();
+          completedList.empty();
+          loadTodos();
+        },
+        error: function (error) {
+          console.error(error);
+        }
       });
-  }
-
-  function deleteTodo(todoId) {
-    fetch(`/todo/${todoId}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // todo convert to jquery
-        taskList.innerHTML = "";
-        completedList.innerHTML = "";
-
-        loadTodos();
-      })
-      .catch((error) => {
-        console.error(error);
+    }
+  
+    function deleteTodo(todoId) {
+      $.ajax({
+        url: `/todo/${todoId}`,
+        type: "DELETE",
+        success: function (data) {
+          console.log(data);
+          taskList.empty();
+          completedList.empty();
+          loadTodos();
+        },
+        error: function (error) {
+          console.error(error);
+        }
       });
-  }
-});
+    }
+  });
+  
