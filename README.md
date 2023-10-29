@@ -73,7 +73,7 @@ There is a file in the repository named schema.sql that has the configuration fo
  
 ### Execution
 
-cd in to todo:
+Change directories:
 
 ```bash
 
