@@ -1,18 +1,10 @@
 const express = require("express");
 const app = express();
-
 const path = require("path");
 
 app.use(express.json());
 
-// Add routes here
-// Serve the entire "client" directory as static content
-//app.use(express.static(path.join(__dirname, "../client/js")));
-// app.use(
-//   "/client/js",
-//   express.static(path.join(__dirname, "../client/js"))
-// );
-
+// Added routes
 app.get("/js/app.js", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/js/app.js"));
 });
@@ -21,6 +13,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
 
+// Added functions from database.js
 const {
   getTodos,
   getTodo,
@@ -29,17 +22,22 @@ const {
   deleteTodoById,
 } = require("./database.js");
 
+// HTTP methods
+
+// GET /todos
 app.get("/todo", async (req, res) => {
   const todo = await getTodos();
   res.json({ todo });
 });
 
+// GET todo by id /todos/:id 
 app.get("/todo/:id", async (req, res) => {
   const id = req.params.id;
   const note = await getTodo(id);
   res.send(note);
 });
 
+// POST /todos
 app.post("/todo", async (req, res) => {
   const { title, description } = req.body;
   const todo = await createTodo(title, description);
@@ -48,6 +46,7 @@ app.post("/todo", async (req, res) => {
   res.status(201).json({ todo, todos });
 });
 
+// Change complete status
 app.put("/todo/:id", async (req, res) => {
   const id = req.params.id;
   const result = await completedTodoById(id);
@@ -57,6 +56,7 @@ app.put("/todo/:id", async (req, res) => {
   res.status(200).json({ result, todo });
 });
 
+// Delete todo by id /todos/:id
 app.delete("/todo/:id", async (req, res) => {
   const id = req.params.id;
   const result = await deleteTodoById(id);
@@ -65,6 +65,7 @@ app.delete("/todo/:id", async (req, res) => {
   res.status(200).json({ result, todo });
 });
 
+// Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
@@ -85,6 +86,7 @@ for (const interfaceName in interfaces) {
   }
 }
 
+// Display server address to admin in terminal
 app.listen(4455, () => {
   console.log(`\x1b[31m
     ___________        .___          _____                 
@@ -97,7 +99,7 @@ app.listen(4455, () => {
           listening on port 4455\x1b[0m\x1b[37m
           
           Local links:
-          
+
           http://localhost:4455
           http://${localIpAddress}:4455
           

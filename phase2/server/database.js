@@ -1,10 +1,14 @@
+// Initialize database connection
 const mysql = require("mysql2");
+// Load environment variables
 const dotenv = require("dotenv");
+// Load path module
 const path = require("path");
-
+// Set path to .env file
 const envPath = path.resolve(__dirname, "../../.env");
 dotenv.config({ path: envPath });
 
+// Create a pool connection using environment variables
 const pool = mysql
   .createPool({
     host: process.env.MYSQL_HOST,
@@ -14,6 +18,7 @@ const pool = mysql
   })
   .promise();
 
+// Export functions
 module.exports = {
   async getTodos() {
     const [rows] = await pool.query("SELECT * FROM todo");
