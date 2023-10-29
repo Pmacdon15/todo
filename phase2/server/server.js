@@ -76,6 +76,7 @@ const os = require("os");
 const interfaces = os.networkInterfaces();
 let localIpAddress;
 
+// Find local IP address for admin display in terminal
 for (const interfaceName in interfaces) {
   const interface = interfaces[interfaceName];
   for (const address of interface) {
@@ -86,7 +87,6 @@ for (const interfaceName in interfaces) {
   }
 }
 
-//console.clear();
 // Display server address to admin in terminal
 app.listen(4455, () => {
   if (process.platform === "win32") {
@@ -103,12 +103,12 @@ app.listen(4455, () => {
     |____| \\____/\\____ |\\____/  \\____|__  /   __/|   __/ 
                       \\/                \\/|__|   |__|
   \x1b[0m\x1b[32m  
-          listening on port 4455\x1b[0m\x1b[37m
-          
-          \x1b[34mLocal links:\x1b[0m
+        listening on port 4455\x1b[0m\x1b[37m
+        
+        \x1b[34mLocal links:\x1b[0m
 
-          \x1b[33m \u{1F5F9}\x1b[0m http://localhost:44555
-          \x1b[33m \u{1F5F9}\x1b[0m http://${localIpAddress}:4455
-          
-          \x1b[0m`);
+        \x1b[33m \u{1F5F9}\x1b[0m http://localhost:44555
+        \x1b[33m \u{1F5F9}\x1b[0m http://${localIpAddress}:4455
+        
+        \x1b[0m`);
 });
