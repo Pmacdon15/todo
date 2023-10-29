@@ -64,7 +64,7 @@ node server.js
 
 ```
 
-Hit enter agian, the server is now running. You can contact the app at localhost:4455/
+Hit enter again, the server is now running. You can contact the app at localhost:4455/
 
 or using your public Ip address after applying the appropriate port forwarding to your router.
 
