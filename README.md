@@ -15,9 +15,19 @@ off the last phase but with users and a login.
 Phase 2 is a simple client side version of the Todo app with no bells or Whistles Strictly to get an idea of the project how it will work. There is no installation or setup required to view this webpage.
 Simply open the web page up with your default browser as you would for other web projects.
 
- ## Phase2
+## Phase2
 
- Phase two has client side JS and node.js Express server for the backend connected to a Mysql database.
+Phase two has client side JS and node.js Express server for the backend connected to a Mysql database.
+
+### Installation
+
+Navigate to a terminal and directory you want to clone the repository in and type:
+
+ ```bash
+
+git clone https://github.com/Pmacdonald15/todo
+
+```
 
  ### Requirements
 
@@ -35,15 +45,7 @@ MYSQL_DATABASE='todo_app'
 The .env file should be located inside of /phase2/server
 There is a file in the repository named schema.sql that has the configuration for the My Sql database. simply copy this code in to the mysql terminal after logging in to configure the database.
 
- ### Installation
-
-Navigate to a terminal and directory you want to clone the repository in and type:
-
- ```bash
-
-git clone https://github.com/Pmacdonald15/todo
-
-```
+ 
 ### Execution
 
 cd in to todo:
