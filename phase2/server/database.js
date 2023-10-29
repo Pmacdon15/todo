@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require("mysql2");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -11,7 +11,6 @@ const pool = mysql
   })
   .promise();
 
-  
 module.exports = {
   async getTodos() {
     const [rows] = await pool.query("SELECT * FROM todo");
@@ -29,31 +28,20 @@ module.exports = {
       [title, description, false]
     );
     const id = result[0].insertId;
-    return module.exports.getTodo(id); 
-  },  
-  
-  // working only can complete once
-  // async completedTodoById(id) {
-  //   const result = await pool.query("UPDATE todo SET completed = ? WHERE id = ?", [true, id]);
-  //   return result[0];
-  // },
+    return module.exports.getTodo(id);
+  },
 
-  // works but pulls warning 
-  // async completedTodoById(id) {
-  //   const result = await pool.query("UPDATE todo SET completed = !completed WHERE id = ?", [id]);
-  //   console.log(result);    
-  //   return result[0];
-  // },
   async completedTodoById(id) {
-    const result = await pool.query("UPDATE todo SET completed = NOT completed WHERE id = ?", [id]);
-    //console.log(result);    
+    const result = await pool.query(
+      "UPDATE todo SET completed = NOT completed WHERE id = ?",
+      [id]
+    );
+    //console.log(result);
     return result[0];
   },
-  
 
   async deleteTodoById(id) {
     const result = await pool.query("DELETE FROM todo WHERE id = ?", [id]);
     return result[0];
-  }
+  },
 };
-
