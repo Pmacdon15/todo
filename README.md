@@ -68,7 +68,7 @@ Hit enter agian, the server is now running. You can contact the app at localhost
 
 or using your public Ip address after applying the appropriate port forwarding to your router.
 
- ##Phase3
+ ## Phase3
 
  Coming soon!!!! 
 
