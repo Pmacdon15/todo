@@ -30,7 +30,7 @@ app.get("/todo", async (req, res) => {
   res.json({ todo });
 });
 
-// GET todo by id /todos/:id 
+// GET todo by id /todos/:id
 app.get("/todo/:id", async (req, res) => {
   const id = req.params.id;
   const note = await getTodo(id);
@@ -41,7 +41,7 @@ app.get("/todo/:id", async (req, res) => {
 app.post("/todo", async (req, res) => {
   const { title, description } = req.body;
   const todo = await createTodo(title, description);
-  const todos = await getTodo(); 
+  const todos = await getTodo();
   console.log("todo id: " + todo.id + " created");
   res.status(201).json({ todo, todos });
 });
@@ -72,14 +72,14 @@ app.use((err, req, res, next) => {
 });
 
 // for output addresses
-const os = require('os');
+const os = require("os");
 const interfaces = os.networkInterfaces();
 let localIpAddress;
 
 for (const interfaceName in interfaces) {
   const interface = interfaces[interfaceName];
   for (const address of interface) {
-    if (address.family === 'IPv4' && !address.internal) {
+    if (address.family === "IPv4" && !address.internal) {
       localIpAddress = address.address;
       break; // If you want to stop after finding the first local IP address
     }
@@ -89,26 +89,26 @@ for (const interfaceName in interfaces) {
 //console.clear();
 // Display server address to admin in terminal
 app.listen(4455, () => {
-  if (process.platform === 'win32') {
-    console.log('\x1B[2J\x1B[3J\x1Bc'); // Clear the terminal (Windows Command Prompt)
+  if (process.platform === "win32") {
+    console.log("\x1B[2J\x1B[3J\x1Bc"); // Clear the terminal (Windows Command Prompt)
   } else {
-    console.log('\x1Bc'); // Clear the terminal (Unix-like terminals)
+    console.log("\x1Bc"); // Clear the terminal (Unix-like terminals)
   }
 
   console.log(`\x1b[31m
-    ___________        .___          _____                 
-    \\__    ___/___   __| _/____     /  _  \\ ______ ______  
-      |    | /  _ \\ / __ |/  _ \\   /  /_\\  \\\\____ \\\\____ \\ 
-      |    |(  <_> ) /_/ (  <_> ) /    |    \\  |_> >  |_> >
-      |____| \\____/\\____ |\\____/  \\____|__  /   __/|   __/ 
-                        \\/                \\/|__|   |__|
+  ___________        .___          _____                 
+  \\__    ___/___   __| _/____     /  _  \\ ______ ______  
+    |    | /  _ \\ / __ |/  _ \\   /  /_\\  \\\\____ \\\\____ \\ 
+    |    |(  <_> ) /_/ (  <_> ) /    |    \\  |_> >  |_> >
+    |____| \\____/\\____ |\\____/  \\____|__  /   __/|   __/ 
+                      \\/                \\/|__|   |__|
   \x1b[0m\x1b[32m  
           listening on port 4455\x1b[0m\x1b[37m
           
-          Local links:
+          \x1b[34mLocal links:\x1b[0m
 
-          http://localhost:4455
-          http://${localIpAddress}:4455
+          \x1b[33m \u{1F5F9}\x1b[0m http://localhost:44555
+          \x1b[33m \u{1F5F9}\x1b[0m http://${localIpAddress}:4455
           
           \x1b[0m`);
 });
