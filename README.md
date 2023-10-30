@@ -7,14 +7,19 @@ off the last phase but with users and a login.
 ## Table of Contents
 
 - [Phase1](#phase1)
+
 - [Phase2](#phase2)
+
 - [Installation](#installation)
+- [Requirements](#Requirements)
+- [Database](#Database)
+- [Startup](#Startup)
+
 - [Phase3](#phase3)
 
 ## Phase1
 
-Phase 2 is a simple client side version of the Todo app with no bells or whistles Strictly to get an idea of the project how it will work. There is no installation or setup required to view this webpage.
-Simply open the web page up with your default browser as you would for other web projects.
+Phase 2 is a simple client side version of the Todo app with no bells or whistles Strictly to get an idea of the project how it will work. There is no installation or setup required to view this webpage. Simply open the web page up with your default browser as you would for other web projects.
 
 ## Phase2
 
@@ -58,24 +63,11 @@ npm install dotenv
 
 ```
 
-### Database Setup
+### Database
 
+This project requires a My Sql database connection. After downloading and installing MySql, Configure your database and take note of the credentials. There is a file in the repository named schema.sql that has the configuration for the My Sql database. Simply copy this code in to the My Sql terminal after logging in to configure the database.
 
-This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
-
- ```.env
-
-MYSQL_HOST=' '
-MYSQL_USER=' '
-MYSQL_PASSWORD=' '
-MYSQL_DATABASE='todo_app'
-
-```
-The .env file should be located inside of root directory of the project.
-
-There is a file in the repository named schema.sql that has the configuration for the My Sql database. Simply copy this code in to the My Sql terminal after logging in to configure the database.
-
-For users on windows that have set up the mysql environment variable path, so that they can use the my sql command in PowerShell and prefer the command line:
+For users on windows that have set up the mysql environment variable path on your system, so that they can use the my sql command in PowerShell and prefer the command line:
 
 1. Log in to your database terminal and run the command:
 
@@ -107,9 +99,22 @@ Remember to replace "username" and "password" with your My Sql database credenti
 
 Hit enter.
 
-### Start server
+4. This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
 
-If you are not already in /phase2/server from the above step go to the projects directory and repeat step 2 from above.
+ ```.env
+
+MYSQL_HOST=' '
+MYSQL_USER=' '
+MYSQL_PASSWORD=' '
+MYSQL_DATABASE='todo_app'
+
+```
+
+The .env file should be located inside of root directory of the project.
+
+### Startup
+
+If you are not already in todo/phase2/server from the above step go to the projects directory and repeat step 2 from above.
 
 hit enter then type:
 
@@ -119,9 +124,7 @@ node server.js
 
 ```
 
-Hit enter again, the server is now running. You can contact the app at localhost:4455/
-
-or using your public Ip address after applying the appropriate port forwarding to your router.
+Hit enter again, the server is now running. You can contact the app at localhost:4455/ or using your public Ip address after applying the appropriate port forwarding to your router.(Depending on your system you can hold control on the keyboard and click on the link, after starting the server)
 
 ## Phase3
 
