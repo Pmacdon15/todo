@@ -8,7 +8,7 @@ off the last phase but with users and a login.
 
 - [Phase1](#phase1)
 - [Phase2](#phase2)
-    -[Installation](#installation)
+-[Installation](#installation)
 - [Phase3](#phase3)
 
 ## Phase1
