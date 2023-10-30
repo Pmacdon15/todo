@@ -5,14 +5,24 @@ const path = require("path");
 app.use(express.json());
 
 // Added routes
-app.get("/js/app.js", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/js/app.js"));
-});
 
-app.get("/css/stylesheet.css", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/css/stylesheet.css"));
-});
+// For external files
+app.use(
+  "/client",
+  express.static(path.join(__dirname, "../client/"))
+);
 
+app.use(
+  "/js/",
+  express.static(path.join(__dirname, "../client/js/"))
+);
+
+app.use(
+  "/css/",
+  express.static(path.join(__dirname, "../client/css/"))
+);
+
+// For base url
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
@@ -26,7 +36,7 @@ const {
   deleteTodoById,
 } = require("./database.js");
 
-// HTTP methods
+// HTTP requests methods
 
 // GET /todos
 app.get("/todo", async (req, res) => {
@@ -114,5 +124,5 @@ app.listen(4455, () => {
         \x1b[33m \u{1F5F9}\x1b[0m http://localhost:4455
         \x1b[33m \u{1F5F9}\x1b[0m http://${localIpAddress}:4455
         
-        \x1b[0m`);
+        \x1b[0m`);        
 });
