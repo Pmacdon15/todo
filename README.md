@@ -8,6 +8,7 @@ off the last phase but with users and a login.
 
 - [Phase1](#phase1)
 - [Phase2](#phase2)
+    -[Installation](#installation)
 - [Phase3](#phase3)
 
 ## Phase1
@@ -29,7 +30,7 @@ git clone https://github.com/Pmacdonald15/todo
 
 ```
 
- ### Requirements
+### Requirements
 
 For easy cloning it is recommended you have git installed. Next we will need to install the Node Modules, I will list them here:
 
@@ -57,7 +58,10 @@ npm install dotenv
 
 ```
 
-This project Requires a.Env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
+### Database Setup
+
+
+This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
 
  ```.env
 
@@ -68,18 +72,44 @@ MYSQL_DATABASE='todo_app'
 
 ```
 The .env file should be located inside of root directory of the project.
-There is a file in the repository named schema.sql that has the configuration for the My Sql database. simply copy this code in to the mysql terminal after logging in to configure the database.
 
- 
-### Execution
+There is a file in the repository named schema.sql that has the configuration for the My Sql database. Simply copy this code in to the My Sql terminal after logging in to configure the database.
 
-Change directories:
+For users on windows that have set up the mysql environment variable path, so that they can use the my sql command in PowerShell and prefer the command line:
+
+1. Log in to your database terminal and run the command:
+
+```mysql
+
+CREATE DATABASE IF NOT EXISTS todo_app;
+
+```
+
+2. Open PowerShell type to the directory where to saved the project and type:
 
 ```bash
 
 cd todo/phase2/server
 
 ```
+
+Hit enter.
+
+3. Now type:
+
+```mysql
+
+mysql -u username -p password --execute="source .\schema.sql"
+
+```
+
+Remember to replace "username" and "password" with your My Sql database credentials.
+
+Hit enter.
+
+### Start server
+
+If you are not already in /phase2/server from the above step go to the projects directory and repeat step 2 from above.
 
 hit enter then type:
 
@@ -93,7 +123,7 @@ Hit enter again, the server is now running. You can contact the app at localhost
 
 or using your public Ip address after applying the appropriate port forwarding to your router.
 
- ## Phase3
+## Phase3
 
  Coming soon!!!! 
 
