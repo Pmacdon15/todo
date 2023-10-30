@@ -8,10 +8,10 @@ off the last phase but with users and a login.
 
 - [Phase1](#phase1)
 - [Phase2](#phase2)
-- [Installation](#installation)
-- [Requirements](#Requirements)
-- [Database](#Database)
-- [Startup](#Startup)
+    [Installation](#installation)
+    [Requirements](#Requirements)
+    [Database](#Database)
+    [Startup](#Startup)
 - [Phase3](#phase3)
 
 ## Phase1
@@ -24,7 +24,7 @@ Phase two has client side JS and node.js Express server for the backend connecte
 
 ### Installation
 
-Navigate to a terminal and directory you want to clone the repository in and type:
+For easy cloning it is recommended you have git installed. Navigate to a terminal and directory you want to clone the repository in and type:
 
  ```bash
 
@@ -34,7 +34,7 @@ git clone https://github.com/Pmacdonald15/todo
 
 ### Requirements
 
-For easy cloning it is recommended you have git installed. Next we will need to install the Node Modules, I will list them here:
+Next we will need to install the Node Modules, I will list them here:
 
 ```powershell
 
@@ -74,7 +74,7 @@ CREATE DATABASE IF NOT EXISTS todo_app;
 
 ```
 
-2. Open PowerShell type to the directory where to saved the project and type:
+2. Open PowerShell type to the directory where to saved the project and run the command:
 
 ```bash
 
@@ -82,9 +82,7 @@ cd todo/phase2/server
 
 ```
 
-Hit enter.
-
-3. Now type:
+3. Now run:
 
 ```mysql
 
@@ -93,8 +91,6 @@ mysql -u username -p password --execute="source .\schema.sql"
 ```
 
 Remember to replace "username" and "password" with your My Sql database credentials.
-
-Hit enter.
 
 4. This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
 
