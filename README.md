@@ -39,25 +39,25 @@ git clone https://github.com/Pmacdonald15/todo
 
 Next we will need to install the Node Modules, I will list them here:
 
-```powershell
+```bash
 
 npm install node
 
 ```
 
-```powershell
+```bash
 
 npm install express
 
 ```
 
-```powershell
+```bash
 
 npm install mysql2
 
 ```
 
-```powershell
+```bash
 
 npm install dotenv
 
