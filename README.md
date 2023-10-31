@@ -35,6 +35,13 @@ git clone https://github.com/Pmacdonald15/todo
 
 ```
 
+
+```bash
+
+cd todo
+
+```
+
 ### Requirements
 
 Next we will need to install the Node Modules, I will list the commands here:
@@ -80,7 +87,7 @@ CREATE DATABASE IF NOT EXISTS todo_app;
 
 ```
 
-2. Open a terminal to the directory where to saved the project and run the command:
+2. In the terminal in th directory where to we saved the project and run the command:
 
 ```bash
 
@@ -125,7 +132,7 @@ MYSQL_DATABASE='todo_app'
 
 ### Startup
 
-If you are not already in todo/phase2/server from the above step go to the projects directory and repeat step 2 from above.
+If you are already in todo/phase2/server from the above step go to the projects directory and repeat step 2 from above.
 
 Then run:
 
@@ -135,7 +142,15 @@ node server.js
 
 ```
 
-Hit enter again, the server is now running. You can contact the app at localhost:4455/ or using your public Ip address after applying the appropriate port forwarding to your router.(Depending on your system you can hold control on the keyboard and click on the link, after starting the server)
+If you are in the root directory run:
+
+```bash
+
+npm start
+
+```
+
+The server is now running. You can contact the app at localhost:4455/ or using your public Ip address after applying the appropriate port forwarding to your router.(Depending on your system you can hold control on the keyboard and click on the link in the terminal, after starting the server)
 
 ## Phase3
 
