@@ -35,16 +35,15 @@ git clone https://github.com/Pmacdonald15/todo
 
 ```
 
+### Requirements
+
+Next we will need to install the Node Modules, I will list the commands here:
 
 ```bash
 
 cd todo
 
 ```
-
-### Requirements
-
-Next we will need to install the Node Modules, I will list the commands here:
 
 ```bash
 
