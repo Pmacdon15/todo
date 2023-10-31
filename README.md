@@ -76,45 +76,6 @@ npm install dotenv
 
 This project requires a My Sql database connection. After downloading and installing MySql, Configure your database and take note of the credentials. There is a file in the repository named schema.sql that has the configuration for the My Sql database. Simply copy and paste this code in to the My Sql terminal after logging on to the database.
 
-For users that have set up the mysql environment variable path on your system, so that they can use the mysql command on the command line:
-
-1. Log in to your database terminal and run the command:
-
-```mysql
-
-CREATE DATABASE IF NOT EXISTS todo_app;
-
-```
-
-2. Open a terminal in the project directory and run the command:
-
-```bash
-
-cd phase2/server
-
-```
-
-3. Now run:
-
-on PowerShell:
-
-```mysql
-
-mysql -u username -p password --execute="source .\schema.sql"
-
-```
-
-or Mac Or linux run:
-
-```mysql
-
-mysql -u username -p -h hostname database_name < schema.sql
-
-```
-
-> [!IMPORTANT]
-> Remember to replace "username" and "password" with your My Sql database credentials.
-
 4. This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
 
  ```.env
