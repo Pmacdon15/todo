@@ -90,7 +90,7 @@ CREATE DATABASE IF NOT EXISTS todo_app;
 
 ```bash
 
-cd todo/phase2/server
+cd phase2/server
 
 ```
 
