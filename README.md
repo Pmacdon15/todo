@@ -20,7 +20,7 @@ Phase 1 is a simple client side version of the Todo app with no bells or whistle
 
 ## Phase2
 
-Phase two has client side JS and node.js Express server for the backend connected to a Mysql database.
+Phase 2 has client side JS and node.js Express server for the backend connected to a Mysql database.
 
 ### Installation
 
