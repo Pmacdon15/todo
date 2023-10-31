@@ -112,7 +112,7 @@ The .env file should be located inside of root directory of the project.
 
 If you are not already in todo/phase2/server from the above step go to the projects directory and repeat step 2 from above.
 
-hit enter then type:
+Then run:
 
 ```bash
 
