@@ -24,7 +24,10 @@ Phase 2 has client side JS and node.js Express server for the backend connected 
 
 ### Installation
 
-For easy cloning it is recommended you have git installed. Navigate to a terminal and directory you want to clone the repository in and type:
+> [!TIP]
+> For easy cloning it is recommended you have git installed..
+
+Navigate to a terminal and directory you want to clone the repository in and type:
 
  ```bash
 
