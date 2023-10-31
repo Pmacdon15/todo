@@ -86,7 +86,7 @@ CREATE DATABASE IF NOT EXISTS todo_app;
 
 ```
 
-2. In the terminal in th directory where to we saved the project and run the command:
+2. Open a terminal in the project directory and run the command:
 
 ```bash
 
@@ -131,7 +131,7 @@ MYSQL_DATABASE='todo_app'
 
 ### Startup
 
-If you are already in todo/phase2/server from the above step go to the projects directory and repeat step 2 from above.
+If you are already in todo/phase2/server
 
 Then run:
 
@@ -141,7 +141,7 @@ node server.js
 
 ```
 
-If you are in the root directory run:
+If you are in the root directory of the project run:
 
 ```bash
 
