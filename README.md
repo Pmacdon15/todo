@@ -80,7 +80,7 @@ CREATE DATABASE IF NOT EXISTS todo_app;
 
 ```
 
-2. Open PowerShell type to the directory where to saved the project and run the command:
+2. Open PowerShell to the directory where to saved the project and run the command:
 
 ```bash
 
