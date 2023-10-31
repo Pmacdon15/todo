@@ -16,7 +16,7 @@ off the last phase but with users and a login.
 
 ## Phase1
 
-Phase 2 is a simple client side version of the Todo app with no bells or whistles Strictly to get an idea of the project how it will work. There is no installation or setup required to view this webpage. Simply open the web page up with your default browser as you would for other web projects.
+Phase 1 is a simple client side version of the Todo app with no bells or whistles Strictly to get an idea of the project how it will work. There is no installation or setup required to view this webpage. Simply open the web page up with your default browser as you would for other web projects.
 
 ## Phase2
 
