@@ -120,7 +120,8 @@ MYSQL_DATABASE='todo_app'
 
 ```
 
-The .env file should be located inside of root directory of the project.
+> [!IMPORTANT]
+>The .env file should be located inside of root directory of the project.
 
 ### Startup
 
