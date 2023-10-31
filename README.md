@@ -37,7 +37,7 @@ git clone https://github.com/Pmacdonald15/todo
 
 ### Requirements
 
-Next we will need to install the Node Modules, I will list them here:
+Next we will need to install the Node Modules, I will list the commands here:
 
 ```bash
 
@@ -62,6 +62,9 @@ npm install mysql2
 npm install dotenv
 
 ```
+
+> [!IMPORTANT]
+> All modules listed above are required for functionality.
 
 ### Database
 
