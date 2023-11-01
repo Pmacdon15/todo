@@ -30,8 +30,9 @@ app.get("/", (req, res) => {
 
 // Added functions from database.js
 const {
-  getTodosByUserEmail,
+  createUser,
   getUserById,
+  getTodosByUserEmail,
   createTodo,
   completedTodoById,
   deleteTodoById,
@@ -40,11 +41,16 @@ const {
 // HTTP requests methods
 
 // * Http requests for user
-
 app.get("/user/:id", async (req, res) => {
   const id = req.params.id;
   const user = await getUserById(id);
   res.json({ user });
+});
+
+app.post("/user", async (req, res) => {
+  const { email, first_name, password } = req.body;
+  const user = await createUser(email, first_name, password);
+  res.status(201).json({ user });
 });
 
 // * Http requests for todo

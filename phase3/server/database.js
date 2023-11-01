@@ -27,14 +27,14 @@ module.exports = {
     return rows[0];
   },
   
-  async getUserByEmail(email, first_name, password) {
+  async createUser(email, first_name, password) {
     const result = await pool.query(
       "INSERT INTO users (email, first_name, password) VALUES (?, ?, ?)",
       [email, first_name, password]
     );
     const id = result[0].insertId;
     console.log("user id: " + id + " created");
-    return module.exports.getUser(id);
+    return module.exports.getUserById(id);
   },
 
 
