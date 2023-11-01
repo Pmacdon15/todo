@@ -22,11 +22,15 @@ const pool = mysql
 module.exports = {
   // * Functions for user
   
-  async getUserById(id) {
-    const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
+  // async getUserById(id) {
+  //   const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
+  //   return rows[0];
+  // },
+   async getUserByEmail(email) {
+    const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
     return rows[0];
   },
-  
+
   async createUser(email, first_name, password) {
     const result = await pool.query(
       "INSERT INTO users (email, first_name, password) VALUES (?, ?, ?)",

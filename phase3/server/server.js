@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 // Added functions from database.js
 const {
   createUser,
-  getUserById,
+  getUserByEmail,
   deleteUserById,
   getTodosByUserEmail,
   createTodo,
@@ -40,36 +40,32 @@ const {
 } = require("./database.js");
 
 // HTTP requests methods
-
+// TODO: Error handling for all requests
 // * Http requests for user
-app.get("/user/:id", async (req, res) => {
-  const id = req.params.id;
-  const user = await getUserById(id);
+// GET user by id /user/:id
+app.get("/user/:email", async (req, res) => {
+  const email = req.params.email;
+  const user = await getUserByEmail(email);
   res.json({ user });
 });
 
+// Create user
 app.post("/user", async (req, res) => {
   const { email, first_name, password } = req.body;
   const user = await createUser(email, first_name, password);
   res.status(201).json({ user });
 });
 
+// Delete user by id /user/:id
 app.delete("/user/:id", async (req, res) => {
   const id = req.params.id;
   const result = await deleteUserById(id);
-  console.log("user id: " + id + " deleted");
+  if (result.affectedRows === 1) {console.log("user id: " + id + " deleted")}
   res.status(200).json({ result });
 });
 
 // * Http requests for todo
-// ! Might be getting cut out
-// GET /todos
-// app.get("/todo", async (req, res) => {
-//   const todo = await getTodos();
-//   res.json({ todo });
-// });
 
-// * Updated for phase 3
 // GET todo by userId /todo/:UserId
 app.get("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;
@@ -77,7 +73,6 @@ app.get("/todo/:userEmail", async (req, res) => {
   res.send({todos});
 });
 
-// * Updated for phase 3
 // POST /todo/:userId
 app.post("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;
@@ -88,19 +83,17 @@ app.post("/todo/:userEmail", async (req, res) => {
   res.status(201).json({ todo, todos });
 });
 
-// * This will have to have getTodoByUserEmail()
 // Change complete status
 app.put("/todo/:userEmail/:id", async (req, res) => {
   const id = req.params.id;
   const userEmail = req.params.userEmail;
   const result = await completedTodoById(id);
   const todos = await getTodosByUserEmail(userEmail);
-  //console.log("todo id: " + id + " completed");
+  console.log("todo id: " + id + " completed");
   //console.log(result);
   res.status(200).json({ result, todos });
 });
 
-// * Updated for phase 3
 // Delete todo by id /todos/:id
 app.delete("/todo/:userEmail/:id", async (req, res) => {
   const id = req.params.id;
@@ -111,7 +104,6 @@ app.delete("/todo/:userEmail/:id", async (req, res) => {
   res.status(200).json({ result, todos });
 });
 
-// * Every thing below here should be able to stay the same for phase 3
 // Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
