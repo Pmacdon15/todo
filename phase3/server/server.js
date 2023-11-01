@@ -23,7 +23,10 @@ app.use(
   express.static(path.join(__dirname, "../client/css/"))
 );
 
-// For base url
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/html/login.html"));
+});
+
 app.get("/:email", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });

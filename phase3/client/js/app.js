@@ -18,9 +18,14 @@ $(document).ready(function () {
   // * Functions below --------------------------------------------------
   function getUserEmail() {
     const url = window.location.href;
+    //const parts = url.split('/');
+
+    
+    // const route = parts[1]; // The first part
+    // const userEmail = parts[2]; // The second part
     const pathParts = url.split("/");
     const userEmail = pathParts.pop(); // Call the 'pop' method to remove and retrieve the last part
-    console.log("user: " + userEmail);
+    console.log("user: " + userEmail );
     return userEmail;
   }
 
