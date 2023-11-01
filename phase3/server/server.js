@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 
 // Added functions from database.js
 const {
-  getTodosByUserId,
+  getTodosByUserEmail,
   getTodo,
   createTodo,
   completedTodoById,
@@ -48,19 +48,19 @@ const {
 
 // * Up dated for phase 3
 // GET todo by userId /todo/:UserId
-app.get("/todo/:userId", async (req, res) => {
-  const userId = req.params.userId;
-  const todos = await getTodosByUserId(userId);
+app.get("/todo/:userEmail", async (req, res) => {
+  const userEmail = req.params.userEmail;
+  const todos = await getTodosByUserEmail(userEmail);
   res.send({todos});
 });
 
 // * This wil be changed for phase 3
 // POST /todo/:userId
-app.post("/todo/:userId", async (req, res) => {
-  const userId = req.params.userId;
+app.post("/todo/:userEmail", async (req, res) => {
+  const userEmail = req.params.userEmail;
   const { title, description } = req.body;
-  const todo = await createTodo(userId, title, description);
-  const todos = await getTodosByUserId(userId);
+  const todo = await createTodo(userEmail, title, description);
+  const todos = await getTodosByUserEmail(userEmail);
   console.log("todo id: " + todo.id + " created");
   res.status(201).json({ todo, todos });
 });
