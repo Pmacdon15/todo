@@ -26,7 +26,7 @@ module.exports = {
   //   const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
   //   return rows[0];
   // },
-   async getUserByEmail(email) {
+  async getUserByEmail(email) {
     const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
     return rows[0];
   },
@@ -41,14 +41,16 @@ module.exports = {
     return module.exports.getUserById(id);
   },
 
-  async deleteUserById(id) {
-    // First, delete associated todos
-    await pool.query("DELETE FROM todo WHERE user_email = (SELECT email FROM users WHERE id = ?)", [id]);
-    
-    // Then, delete the user
-    const result = await pool.query("DELETE FROM users WHERE id = ?", [id]);
+  async deleteUserByEmail(email) {
+    await pool.query("DELETE FROM todo WHERE user_email = ?", [email]); 
+    const result = await pool.query("DELETE FROM users WHERE email = ?", [email]);
     return result[0];
   },
+  // async deleteUserById(id) {
+  //   await pool.query("DELETE FROM todo WHERE user_email = (SELECT email FROM users WHERE id = ?)", [id]);
+  //   const result = await pool.query("DELETE FROM users WHERE id = ?", [id]);
+  //   return result[0];
+  // },
   
   // * Functions for todo
   // * Updated for phase 3

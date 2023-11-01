@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 const {
   createUser,
   getUserByEmail,
-  deleteUserById,
+  deleteUserByEmail,
   getTodosByUserEmail,
   createTodo,
   completedTodoById,
@@ -57,10 +57,10 @@ app.post("/user", async (req, res) => {
 });
 
 // Delete user by id /user/:id
-app.delete("/user/:id", async (req, res) => {
-  const id = req.params.id;
-  const result = await deleteUserById(id);
-  if (result.affectedRows === 1) {console.log("user id: " + id + " deleted")}
+app.delete("/user/:email", async (req, res) => {
+  const email = req.params.email;
+  const result = await deleteUserByEmail(email);
+  if (result.affectedRows === 1) {console.log("user email: " + email + " deleted")}
   res.status(200).json({ result });
 });
 
