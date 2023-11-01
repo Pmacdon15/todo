@@ -24,7 +24,7 @@ app.use(
 );
 
 // For base url
-app.get("/", (req, res) => {
+app.get("/:email", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
 

@@ -3,21 +3,22 @@ $(document).ready(function () {
   const completedList = $("#completedList");
   const form = $("#addTodoForm");
 
-  
-//* For testing
-const userEmail = "thunder@cat4.com"
-//*
+  // Get user email from url
+  const url = window.location.href;
+  const pathParts = url.split('/');  
+  const userEmail = pathParts.pop(); // Call the 'pop' method to remove and retrieve the last part
+  console.log("user: " + userEmail);
 
+  // Load todos by user email
   loadTodos(userEmail);
-  //console.log("DOM fully loaded and parsed");
 
-  // Event listeners below --------------------------------------------
+  // * Event listeners below --------------------------------------------
   form.on("submit", function (event) {
     event.preventDefault();
     addTodo();
   });
 
-  // Functions below --------------------------------------------------
+  // * Functions below --------------------------------------------------
 
 function createListItem(todo, parentList) {
     const li = $("<li></li>").addClass("list-group-item");
