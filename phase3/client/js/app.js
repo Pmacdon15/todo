@@ -4,11 +4,8 @@ $(document).ready(function () {
   const form = $("#addTodoForm");
 
   // Get user email from url
-  const url = window.location.href;
-  const pathParts = url.split('/');  
-  const userEmail = pathParts.pop(); // Call the 'pop' method to remove and retrieve the last part
-  console.log("user: " + userEmail);
 
+  const userEmail = getUserEmail();
   // Load todos by user email
   loadTodos(userEmail);
 
@@ -19,32 +16,42 @@ $(document).ready(function () {
   });
 
   // * Functions below --------------------------------------------------
+  function getUserEmail() {
+    const url = window.location.href;
+    const pathParts = url.split("/");
+    const userEmail = pathParts.pop(); // Call the 'pop' method to remove and retrieve the last part
+    console.log("user: " + userEmail);
+    return userEmail;
+  }
 
-function createListItem(todo, parentList) {
+  function createListItem(todo, parentList) {
     const li = $("<li></li>").addClass("list-group-item");
 
-    const completedCheckbox = $("<input type='checkbox'>").addClass("form-check-input")
-        .prop("checked", todo.completed)  
-        .on("change", function () {
-            completedTodo(todo.id);
-        });
+    const completedCheckbox = $("<input type='checkbox'>")
+      .addClass("form-check-input")
+      .prop("checked", todo.completed)
+      .on("change", function () {
+        completedTodo(todo.id);
+      });
 
     li.append(completedCheckbox);
 
     const textSpan = $("<span></span>").text(
-        " " + todo.title + " " + " - " + " " +todo.description + " " 
+      " " + todo.title + " " + " - " + " " + todo.description + " "
     );
 
     li.append(textSpan);
 
-    const deleteButton = $("<button>Delete</button>").addClass("btn btn-outline-primary btn-sm").on("click", function () {
+    const deleteButton = $("<button>Delete</button>")
+      .addClass("btn btn-outline-primary btn-sm")
+      .on("click", function () {
         deleteTodo(todo.id);
-    });
+      });
 
     li.append(deleteButton);
 
     parentList.append(li);
-}
+  }
 
   function loadTodos(userEmail) {
     $.get("/todo/" + userEmail, function (data) {
@@ -69,9 +76,9 @@ function createListItem(todo, parentList) {
     const title = $("#title").val();
     const description = $("#description").val();
     const todo = { title, description };
-  
+
     $.ajax({
-      url: "/todo/"+ userEmail,
+      url: "/todo/" + userEmail,
       type: "POST",
       contentType: "application/json", // Set the content type for JSON
       data: JSON.stringify(todo), // Serialize the todo object to JSON
@@ -86,7 +93,7 @@ function createListItem(todo, parentList) {
       },
     });
   }
-  
+
   function completedTodo(todoId) {
     $.ajax({
       url: `/todo/${userEmail}/${todoId}`,
