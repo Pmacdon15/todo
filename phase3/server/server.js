@@ -46,7 +46,7 @@ const {
 //   res.json({ todo });
 // });
 
-// * Up dated for phase 3
+// * Updated for phase 3
 // GET todo by userId /todo/:UserId
 app.get("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;
@@ -54,7 +54,7 @@ app.get("/todo/:userEmail", async (req, res) => {
   res.send({todos});
 });
 
-// * This wil be changed for phase 3
+// * Updated for phase 3
 // POST /todo/:userId
 app.post("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;
@@ -65,25 +65,27 @@ app.post("/todo/:userEmail", async (req, res) => {
   res.status(201).json({ todo, todos });
 });
 
-// * This should be able to stay the same for phase 3
+// * This will have to have getTodoByUserEmail()
 // Change complete status
-app.put("/todo/:id", async (req, res) => {
+app.put("/todo/:userEmail/:id", async (req, res) => {
   const id = req.params.id;
+  const userEmail = req.params.userEmail;
   const result = await completedTodoById(id);
-  const todo = await getTodos();
+  const todos = await getTodosByUserEmail(userEmail);
   //console.log("todo id: " + id + " completed");
   //console.log(result);
-  res.status(200).json({ result, todo });
+  res.status(200).json({ result, todos });
 });
 
-// * This should be able to stay the same for phase 3
+// * Updated for phase 3
 // Delete todo by id /todos/:id
-app.delete("/todo/:id", async (req, res) => {
+app.delete("/todo/:userEmail/:id", async (req, res) => {
   const id = req.params.id;
+  const userEmail = req.params.userEmail;
   const result = await deleteTodoById(id);
-  const todo = await getTodos();
+  const todos = await getTodosByUserEmail(userEmail)
   console.log("todo id: " + id + " deleted");
-  res.status(200).json({ result, todo });
+  res.status(200).json({ result, todos });
 });
 
 // * Every thing below here should be able to stay the same for phase 3
