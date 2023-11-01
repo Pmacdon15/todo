@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
 // Added routes
 
@@ -25,6 +26,10 @@ app.use(
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/login.html"));
+});
+
+app.get("/signup", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/html/signup.html"));
 });
 
 app.get("/:email", (req, res) => {
@@ -56,7 +61,8 @@ app.get("/user/:email", async (req, res) => {
 app.post("/user", async (req, res) => {
   const { email, first_name, password } = req.body;
   const user = await createUser(email, first_name, password);
-  res.status(201).json({ user });
+  res.redirect("/");
+  //res.status(201).json({ user });
 });
 
 // Delete user by id /user/:id
