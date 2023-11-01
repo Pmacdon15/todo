@@ -89,13 +89,13 @@ function createListItem(todo, parentList) {
   
   function completedTodo(todoId) {
     $.ajax({
-      url: `/todo/${todoId}`,
+      url: `/todo/${userEmail}/${todoId}`,
       type: "PUT",
       success: function (data) {
         console.log(data);
         taskList.empty();
         completedList.empty();
-        loadTodos();
+        loadTodos(userEmail);
       },
       error: function (error) {
         console.error(error);
