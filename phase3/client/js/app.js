@@ -15,7 +15,7 @@ $(document).ready(function () {
   // * Event listeners below --------------------------------------------
   form.on("submit", function (event) {
     event.preventDefault();
-    addTodo();
+    addTodo(userEmail);
   });
 
   // * Functions below --------------------------------------------------
@@ -65,13 +65,13 @@ function createListItem(todo, parentList) {
     });
   }
 
-  function addTodo() {
+  function addTodo(userEmail) {
     const title = $("#title").val();
     const description = $("#description").val();
     const todo = { title, description };
   
     $.ajax({
-      url: "/todo",
+      url: "/todo/"+ userEmail,
       type: "POST",
       contentType: "application/json", // Set the content type for JSON
       data: JSON.stringify(todo), // Serialize the todo object to JSON
@@ -79,7 +79,7 @@ function createListItem(todo, parentList) {
         console.log(data);
         taskList.empty();
         completedList.empty();
-        loadTodos();
+        loadTodos(userEmail);
       },
       error: function (error) {
         console.error(error);
