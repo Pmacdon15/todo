@@ -21,11 +21,6 @@ const pool = mysql
 // Export functions
 module.exports = {
   // * Functions for user
-  
-  // async getUserById(id) {
-  //   const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
-  //   return rows[0];
-  // },
   async getUserByEmail(email) {
     const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
     return rows[0];
@@ -38,7 +33,7 @@ module.exports = {
     );
     const id = result[0].insertId;
     console.log("user id: " + id + " created");
-    return module.exports.getUserById(id);
+    return module.exports.getUserByEmail(email);
   },
 
   async deleteUserByEmail(email) {
@@ -46,31 +41,18 @@ module.exports = {
     const result = await pool.query("DELETE FROM users WHERE email = ?", [email]);
     return result[0];
   },
-  // async deleteUserById(id) {
-  //   await pool.query("DELETE FROM todo WHERE user_email = (SELECT email FROM users WHERE id = ?)", [id]);
-  //   const result = await pool.query("DELETE FROM users WHERE id = ?", [id]);
-  //   return result[0];
-  // },
-  
+    
   // * Functions for todo
-  // * Updated for phase 3
   async getTodosByUserEmail(userEmail) {
     const [rows] = await pool.query("SELECT * FROM todo WHERE user_email = ?", [userEmail]);
     return rows;
   },
-  
-  //! Might be getting cut out
-  // async getTodos() {
-  //   const [rows] = await pool.query("SELECT * FROM todo");
-  //   return rows;
-  // },
-  // * Updated for phase 3  
+   
   async getTodo(id) {
     const [rows] = await pool.query("SELECT * FROM todo WHERE id = ?", [id]);
     return rows[0];
   },
 
-  // * Completed for phase 3
   async createTodo(userEmail, title, description) {
     const result = await pool.query(
       "INSERT INTO todo (user_Email, title, description, completed) VALUES (?, ?, ?, ?)",
@@ -81,7 +63,6 @@ module.exports = {
     return module.exports.getTodo(id);
   },
 
-  // * This should be able to stay the same for phase 3
   async completedTodoById(id) {
     const result = await pool.query(
       "UPDATE todo SET completed = NOT completed WHERE id = ?",
@@ -90,7 +71,7 @@ module.exports = {
     //console.log(result);
     return result[0];
   },
-  // * This should be able to stay the same for phase 3
+  
   async deleteTodoById(id) {
     const result = await pool.query("DELETE FROM todo WHERE id = ?", [id]);
     return result[0];
