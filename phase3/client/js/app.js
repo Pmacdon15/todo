@@ -6,16 +6,17 @@ $(document).ready(function () {
   // Get user email from url
 
   const userEmail = getUserEmail();
-  // Load todos by user email
-  
-  if(userEmail != "login" || userEmail != "signup"){loadTodos(userEmail)}
-  
-
+ 
   // * Event listeners below --------------------------------------------
-  // form.on("submit", function (event) {
-  //   event.preventDefault();
-  //   addTodo(userEmail);
-  // });
+  // Only applies on main todo page not login or sign up
+  if (userEmail !== "login" && userEmail !== "sign up") {
+    loadTodos(userEmail)
+    form.on("submit", function (event) {
+      event.preventDefault();
+      addTodo(userEmail);
+    });
+  }
+  
 
   // * Functions below --------------------------------------------------
   function getUserEmail() {
