@@ -20,17 +20,38 @@ const pool = mysql
 
 // Export functions
 module.exports = {
-  // * Up dated for phase 3
+  // * Functions for user
+  
+  async getUserById(id) {
+    const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
+    return rows[0];
+  },
+  
+  async getUserByEmail(email, first_name, password) {
+    const result = await pool.query(
+      "INSERT INTO users (email, first_name, password) VALUES (?, ?, ?)",
+      [email, first_name, password]
+    );
+    const id = result[0].insertId;
+    console.log("user id: " + id + " created");
+    return module.exports.getUser(id);
+  },
+
+
+
+  // * Functions for todo
+  // * Updated for phase 3
   async getTodosByUserEmail(userEmail) {
     const [rows] = await pool.query("SELECT * FROM todo WHERE user_email = ?", [userEmail]);
     return rows;
   },
-    
+  
+  //! Might be getting cut out
   // async getTodos() {
   //   const [rows] = await pool.query("SELECT * FROM todo");
   //   return rows;
   // },
-  //! Might be getting cut out
+  
   async getTodo(id) {
     const [rows] = await pool.query("SELECT * FROM todo WHERE id = ?", [id]);
     return rows[0];

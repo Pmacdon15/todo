@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 // Added functions from database.js
 const {
   getTodosByUserEmail,
-  getTodo,
+  getUserById,
   createTodo,
   completedTodoById,
   deleteTodoById,
@@ -39,6 +39,15 @@ const {
 
 // HTTP requests methods
 
+// * Http requests for user
+
+app.get("/user/:id", async (req, res) => {
+  const id = req.params.id;
+  const user = await getUserById(id);
+  res.json({ user });
+});
+
+// * Http requests for todo
 // ! Might be getting cut out
 // GET /todos
 // app.get("/todo", async (req, res) => {
