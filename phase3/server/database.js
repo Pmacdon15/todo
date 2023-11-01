@@ -36,13 +36,14 @@ module.exports = {
     return rows[0];
   },
 
-  // * This wil be changed for phase 3
-  async createTodo(title, description) {
+  // * Completed for phase 3
+  async createTodo(userId, title, description) {
     const result = await pool.query(
-      "INSERT INTO todo (title, description, completed) VALUES (?, ?, ?)",
-      [title, description, false]
+      "INSERT INTO todo (user_id, title, description, completed) VALUES (?, ?, ?, ?)",
+      [userId, title, description, false]
     );
     const id = result[0].insertId;
+    console.log("todo id: " + id + " created");
     return module.exports.getTodo(id);
   },
 

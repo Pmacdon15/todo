@@ -41,13 +41,13 @@ const {
 
 // ! Might be getting cut out
 // GET /todos
-app.get("/todo", async (req, res) => {
-  const todo = await getTodos();
-  res.json({ todo });
-});
+// app.get("/todo", async (req, res) => {
+//   const todo = await getTodos();
+//   res.json({ todo });
+// });
 
 // * Up dated for phase 3
-// GET todo by userId /todos/:UserId
+// GET todo by userId /todo/:UserId
 app.get("/todo/:userId", async (req, res) => {
   const userId = req.params.userId;
   const todos = await getTodosByUserId(userId);
@@ -55,11 +55,12 @@ app.get("/todo/:userId", async (req, res) => {
 });
 
 // * This wil be changed for phase 3
-// POST /todos
-app.post("/todo", async (req, res) => {
+// POST /todo/:userId
+app.post("/todo/:userId", async (req, res) => {
+  const userId = req.params.userId;
   const { title, description } = req.body;
-  const todo = await createTodo(title, description);
-  const todos = await getTodo();
+  const todo = await createTodo(userId, title, description);
+  const todos = await getTodosByUserId(userId);
   console.log("todo id: " + todo.id + " created");
   res.status(201).json({ todo, todos });
 });
