@@ -37,8 +37,15 @@ module.exports = {
     return module.exports.getUserById(id);
   },
 
-
-
+  async deleteUserById(id) {
+    // First, delete associated todos
+    await pool.query("DELETE FROM todo WHERE user_email = (SELECT email FROM users WHERE id = ?)", [id]);
+    
+    // Then, delete the user
+    const result = await pool.query("DELETE FROM users WHERE id = ?", [id]);
+    return result[0];
+  },
+  
   // * Functions for todo
   // * Updated for phase 3
   async getTodosByUserEmail(userEmail) {
@@ -51,7 +58,7 @@ module.exports = {
   //   const [rows] = await pool.query("SELECT * FROM todo");
   //   return rows;
   // },
-  
+  // * Updated for phase 3  
   async getTodo(id) {
     const [rows] = await pool.query("SELECT * FROM todo WHERE id = ?", [id]);
     return rows[0];

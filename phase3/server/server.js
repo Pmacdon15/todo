@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
 const {
   createUser,
   getUserById,
+  deleteUserById,
   getTodosByUserEmail,
   createTodo,
   completedTodoById,
@@ -51,6 +52,13 @@ app.post("/user", async (req, res) => {
   const { email, first_name, password } = req.body;
   const user = await createUser(email, first_name, password);
   res.status(201).json({ user });
+});
+
+app.delete("/user/:id", async (req, res) => {
+  const id = req.params.id;
+  const result = await deleteUserById(id);
+  console.log("user id: " + id + " deleted");
+  res.status(200).json({ result });
 });
 
 // * Http requests for todo
