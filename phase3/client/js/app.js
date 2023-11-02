@@ -15,8 +15,7 @@ $(document).ready(function () {
       event.preventDefault();
       addTodo(userEmail);
     });
-  }
-  
+  }  
 
   // * Functions below --------------------------------------------------
   function getUserEmail() {

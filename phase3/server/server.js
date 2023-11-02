@@ -38,6 +38,7 @@ app.get("/:email", (req, res) => {
 
 // Added functions from database.js
 const {
+  
   createUser,
   getUserByEmail,
   deleteUserByEmail,
@@ -48,6 +49,29 @@ const {
 } = require("./database.js");
 
 // HTTP requests methods
+// * Http requests for login
+// POST /login
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await getUserByEmail(email);
+
+  if (user && user.password === password) {
+    // Redirect to the user's profile page with their email
+    console.log("user: " + email + " logged in");
+    res.redirect("/"+email);
+    //res.json({ user });
+  } else {
+    // Redirect to the login page
+    res.redirect("/");
+  }
+});
+
+// app.get("/login", (req, res) => {
+//   const { email, password } = req.body;
+//   const user = await getUserByEmail(email);
+//   res.redirect("/"+email);
+// });
+
 // TODO: Error handling for all requests
 // * Http requests for user
 // GET user by id /user/:id

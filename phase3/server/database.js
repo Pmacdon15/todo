@@ -20,6 +20,15 @@ const pool = mysql
 
 // Export functions
 module.exports = {
+  // * Functions for login
+  async login(email, password) {
+    const [rows] = await pool.query(
+      "SELECT * FROM users WHERE email = ? AND password = ?",
+      [email, password]
+    );
+    return rows[0];
+  },
+
   // * Functions for user
   async getUserByEmail(email) {
     const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
