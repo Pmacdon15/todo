@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const getIp = require('./getIp.js');
+const os = require("os");
+const interfaces = os.networkInterfaces();
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
@@ -37,8 +41,7 @@ app.get("/:email", (req, res) => {
 });
 
 // Added functions from database.js
-const {
-  
+const {  
   createUser,
   getUserByEmail,
   deleteUserByEmail,
@@ -58,19 +61,13 @@ app.post("/login", async (req, res) => {
   if (user && user.password === password) {
     // Redirect to the user's profile page with their email
     console.log("user: " + email + " logged in");
-    res.redirect("/"+email);
+    res.redirect("/"+ email);
     //res.json({ user });
   } else {
     // Redirect to the login page
     res.redirect("/");
   }
 });
-
-// app.get("/login", (req, res) => {
-//   const { email, password } = req.body;
-//   const user = await getUserByEmail(email);
-//   res.redirect("/"+email);
-// });
 
 // TODO: Error handling for all requests
 // * Http requests for user
@@ -123,7 +120,7 @@ app.put("/todo/:userEmail/:id", async (req, res) => {
   const userEmail = req.params.userEmail;
   const result = await completedTodoById(id);
   const todos = await getTodosByUserEmail(userEmail);
-  console.log("todo id: " + id + " completed");
+  console.log("todo id: " + id + " completed toggled");
   //console.log(result);
   res.status(200).json({ result, todos });
 });
@@ -144,21 +141,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-// for output addresses
-const os = require("os");
-const interfaces = os.networkInterfaces();
-let localIpAddress;
-
-// Find local IP address for admin display in terminal
-for (const interfaceName in interfaces) {
-  const interface = interfaces[interfaceName];
-  for (const address of interface) {
-    if (address.family === "IPv4" && !address.internal) {
-      localIpAddress = address.address;
-      break; // If you want to stop after finding the first local IP address
-    }
-  }
-}
+const localIpAddress = getIp(interfaces);
 
 // Display server address to admin in terminal
 app.listen(4455, () => {
@@ -185,3 +168,4 @@ app.listen(4455, () => {
         
         \x1b[0m`);        
 });
+
