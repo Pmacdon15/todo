@@ -7,6 +7,10 @@ const interfaces = os.networkInterfaces();
 const verifyToken = require('./auth.js');
 const jwt = require('jsonwebtoken');
 
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
@@ -62,25 +66,36 @@ const {
 
 // * Http requests for login
 // POST /login
+// If the user is authenticated, create a unique token for them
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await getUserByEmail(email);
-
+  const token = jwt.sign({ user: email }, 'secret_key');
   if (user && user.password === password) {
     // Redirect to the user's profile page with their email
     console.log("user: " + email + " logged in");
-    
-    res.redirect("/"+ email);
-    //* test
-    const token = jwt.sign({ user }, 'secret_key');
-    //res.json({ user: { user }, token });
-    //*
-    
+
+    const userTokenCookieName = `userToken_${email}`;
+
+    // Use the generated JWT token as the token value
+    const tokenValue = token;
+
+    // Set the cookie with the userTokenCookieName and the token value
+    res.cookie(userTokenCookieName, tokenValue, {
+      httpOnly: true,
+      maxAge: 3600000, // Set the cookie's maximum age in milliseconds
+      path: '/', // Specify the cookie's path
+    });
+
+    res.redirect("/" + email);
   } else {
     // Redirect to the login page
     res.redirect("/");
   }
 });
+
+
 
 // TODO: Error handling for all requests
 // * Http requests for user
@@ -113,11 +128,26 @@ app.delete("/user/:email", async (req, res) => {
 // GET todo by userId /todo/:UserId
 app.get("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;
+
+  // Call the verifyToken function and await the result
+  const verify = await verifyToken(userEmail)(req, res);
+
   const todos = await getTodosByUserEmail(userEmail);
-  res.send({todos});
+
+  console.log(verify);
+  if (verify) {
+    // If the token exists and is valid, you can proceed with handling the todos
+    res.send({ todos });
+  } else {
+    // Handle the case when the token is missing or invalid
+    res.status(401).send("Unauthorized");
+  }
 });
 
-// POST /todo/:userId
+
+
+
+// POST /todo/:userEmail
 app.post("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;
   const { title, description } = req.body;

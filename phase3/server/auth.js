@@ -1,17 +1,25 @@
 const jwt = require('jsonwebtoken');
 
-function verifyToken(req, res, next) {
-    //const authHeader = req.headers['Authorization'];
-    const authHeader = req.headers['authorization'];
-    //console.log("authHeader: " + authHeader);
-    const token = authHeader && authHeader.split(' ')[1];
-    //console.log(token);
-    if (token == null) return res.sendStatus(401);
+function verifyToken(email) {
+  return function (req, res, next) {
+    return new Promise((resolve, reject) => {
+      const userTokenCookieName = "userToken_" + email; // Replace with the correct cookie name
+      const token = req.cookies[userTokenCookieName];
+
+      if (token == null) {
+        resolve(false); // Resolve with false if the token is missing
+      }
+
       jwt.verify(token, 'secret_key', (err, user) => {
-      if (err) return res.sendStatus(403);
-      req.user = user;
-      next();
+        if (err) {
+          resolve(false); // Resolve with false if verification fails
+        } else {
+          req.user = user;
+          resolve(true); // Resolve with true if the token is successfully verified
+        }
+      });
     });
+  };
 }
 
-module.exports =  verifyToken;
+module.exports = verifyToken;
