@@ -5,11 +5,7 @@ const getIp = require('./getIp.js');
 const os = require("os");
 const interfaces = os.networkInterfaces();
 const verifyToken = require('./auth.js');
-
-
-// app.get('/protected', verifyToken, (req, res) => {
-//   res.json({ message: 'Protected route' });
-// });
+const jwt = require('jsonwebtoken');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
@@ -74,10 +70,10 @@ app.post("/login", async (req, res) => {
     // Redirect to the user's profile page with their email
     console.log("user: " + email + " logged in");
     
-    //res.redirect("/"+ email);
+    res.redirect("/"+ email);
     //* test
     const token = jwt.sign({ user }, 'secret_key');
-    res.json({ user: { user }, token });
+    //res.json({ user: { user }, token });
     //*
     
   } else {
@@ -122,14 +118,14 @@ app.get("/todo/:userEmail", async (req, res) => {
 });
 
 // POST /todo/:userId
-app.post("/todo/:userEmail", async (req, res) => {
-  const userEmail = req.params.userEmail;
-  const { title, description } = req.body;
-  const todo = await createTodo(userEmail, title, description);
-  const todos = await getTodosByUserEmail(userEmail);
-  console.log("todo id: " + todo.id + " created");
-  res.status(201).json({ todo, todos });
-});
+// app.post("/todo/:userEmail", async (req, res) => {
+//   const userEmail = req.params.userEmail;
+//   const { title, description } = req.body;
+//   const todo = await createTodo(userEmail, title, description);
+//   const todos = await getTodosByUserEmail(userEmail);
+//   console.log("todo id: " + todo.id + " created");
+//   res.status(201).json({ todo, todos });
+// });
 
 // Change complete status
 app.put("/todo/:userEmail/:id", async (req, res) => {
