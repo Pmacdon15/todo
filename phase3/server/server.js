@@ -118,14 +118,14 @@ app.get("/todo/:userEmail", async (req, res) => {
 });
 
 // POST /todo/:userId
-// app.post("/todo/:userEmail", async (req, res) => {
-//   const userEmail = req.params.userEmail;
-//   const { title, description } = req.body;
-//   const todo = await createTodo(userEmail, title, description);
-//   const todos = await getTodosByUserEmail(userEmail);
-//   console.log("todo id: " + todo.id + " created");
-//   res.status(201).json({ todo, todos });
-// });
+app.post("/todo/:userEmail", async (req, res) => {
+  const userEmail = req.params.userEmail;
+  const { title, description } = req.body;
+  const todo = await createTodo(userEmail, title, description);
+  const todos = await getTodosByUserEmail(userEmail);
+  console.log("todo id: " + todo.id + " created");
+  res.status(201).json({ todo, todos });
+});
 
 // Change complete status
 app.put("/todo/:userEmail/:id", async (req, res) => {
