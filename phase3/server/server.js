@@ -4,35 +4,18 @@ const path = require("path");
 const getIp = require('./getIp.js');
 const os = require("os");
 const interfaces = os.networkInterfaces();
-// * test
-const jwt = require('jsonwebtoken');
-app.get('/protected', verifyToken, (req, res) => {
-  res.json({ message: 'Protected route' });
-});
+const verifyToken = require('./auth.js');
 
-// Middleware function to verify JWT token
-function verifyToken(req, res, next) {
-  //const authHeader = req.headers['Authorization'];
-  const authHeader = req.headers['authorization'];
-  //console.log("authHeader: " + authHeader);
-  const token = authHeader && authHeader.split(' ')[1];
-  console.log(token);
-  if (token == null) return res.sendStatus(401);
-    jwt.verify(token, 'secret_key', (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-}
 
-//*
+// app.get('/protected', verifyToken, (req, res) => {
+//   res.json({ message: 'Protected route' });
+// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
-// Added routes
 
-// todo maybe use old routes till phase 3 is done
+// Added routes
 // For external files
 app.use(
   "/client",
@@ -53,13 +36,20 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/login.html"));
 });
 
+// Routes for Pages
 app.get("/signup", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/signup.html"));
+});
+
+app.get('/protected', verifyToken, (req, res) => {
+  res.json({ message: 'Protected route' });
 });
 
 app.get("/:email", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
+
+
 
 // Added functions from database.js
 const {  
@@ -73,6 +63,7 @@ const {
 } = require("./database.js");
 
 // HTTP requests methods
+
 // * Http requests for login
 // POST /login
 app.post("/login", async (req, res) => {
