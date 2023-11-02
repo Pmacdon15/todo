@@ -4,7 +4,28 @@ const path = require("path");
 const getIp = require('./getIp.js');
 const os = require("os");
 const interfaces = os.networkInterfaces();
+// * test
+const jwt = require('jsonwebtoken');
+app.get('/protected', verifyToken, (req, res) => {
+  res.json({ message: 'Protected route' });
+});
 
+// Middleware function to verify JWT token
+function verifyToken(req, res, next) {
+  //const authHeader = req.headers['Authorization'];
+  const authHeader = req.headers['authorization'];
+  //console.log("authHeader: " + authHeader);
+  const token = authHeader && authHeader.split(' ')[1];
+  console.log(token);
+  if (token == null) return res.sendStatus(401);
+    jwt.verify(token, 'secret_key', (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
+
+//*
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
@@ -61,8 +82,13 @@ app.post("/login", async (req, res) => {
   if (user && user.password === password) {
     // Redirect to the user's profile page with their email
     console.log("user: " + email + " logged in");
-    res.redirect("/"+ email);
-    //res.json({ user });
+    
+    //res.redirect("/"+ email);
+    //* test
+    const token = jwt.sign({ user }, 'secret_key');
+    res.json({ user: { user }, token });
+    //*
+    
   } else {
     // Redirect to the login page
     res.redirect("/");
