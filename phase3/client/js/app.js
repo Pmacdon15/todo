@@ -57,24 +57,31 @@ $(document).ready(function () {
   }
 
   function loadTodos(userEmail) {
-    $.get("/todo/" + userEmail, function (data) {
-      console.log(data);
-      if (Array.isArray(data.todos)) {
-        data.todos.forEach(function (todos) {
-          if (todos.completed) {
-            createListItem(todos, completedList);
-          } else {
-            createListItem(todos, taskList);
-          }
-        });
-      } else {
-        console.error("Data.todo is not an array:", data.todos);
-      }
-    }).fail(function (error) {
-      console.error(error);
-    });
+    $.get("/todo/" + userEmail)
+      .done(function (data) {
+        console.log(data);
+        if (Array.isArray(data.todos)) {
+          data.todos.forEach(function (todos) {
+            if (todos.completed) {
+              createListItem(todos, completedList);
+            } else {
+              createListItem(todos, taskList);
+            }
+          });
+        } else {
+          console.error("Data.todos is not an array:", data.todos);
+        }
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Request failed:", textStatus, errorThrown);
+  
+        if (jqXHR.status === 401) {
+          // Handle 401 Unauthorized error here, such as redirecting to the root page
+          window.location.href = "/";
+        }
+      });
   }
-
+  
   function addTodo(userEmail) {
     const title = $("#title").val();
     const description = $("#description").val();
