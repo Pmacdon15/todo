@@ -4,7 +4,7 @@ const path = require("path");
 const getIp = require('./getIp.js');
 const os = require("os");
 const interfaces = os.networkInterfaces();
-const { verifyToken, confirmLogin } = require('./auth.js'); // Import the functions individually
+const { confirmLogin } = require('./auth.js'); // Import the functions individually
 
 const jwt = require('jsonwebtoken');
 
@@ -42,15 +42,9 @@ app.get("/signup", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/signup.html"));
 });
 
-// app.get('/protected', verifyToken, (req, res) => {
-//   res.json({ message: 'Protected route' });
-// });
-
 app.get("/:email", confirmLogin , (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
-
-
 
 // Added functions from database.js
 const {  
@@ -64,8 +58,6 @@ const {
 } = require("./database.js");
 const e = require("express");
 
-// HTTP requests methods
-
 // * Http requests for login
 // POST /login
 // If the user is authenticated, create a unique token for them
@@ -74,19 +66,16 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await getUserByEmail(email);
   const secret_key = process.env.SECRET_KEY;
-  secret_key + email;
+  const key = secret_key + email;
   if (user && user.password === password) {
     // Use the email as both the payload and the secret key for signing the JWT
-    const token = jwt.sign({ user: email }, secret_key );
+    const token = jwt.sign({ user: email }, key );
 
     // Create a unique cookie name for each user based on their email
     const userTokenCookieName = `userToken_${email}`;
 
-    // Use the generated JWT token as the token value
-    const tokenValue = token;
-
     // Set the cookie with the userTokenCookieName and the token value
-    res.cookie(userTokenCookieName, tokenValue, {
+    res.cookie(userTokenCookieName, token, {
       httpOnly: true,
       maxAge: 3600000, // Set the cookie's maximum age in milliseconds
       path: '/', // Specify the cookie's path
