@@ -8,13 +8,15 @@ off the last phase but with users and a login.
 
 - [Phase1](#phase1)
 - [Phase2](#phase2)
-    - [Installation](#installation)
+    - [Installation](#Installation)
     - [Requirements](#Requirements)
     - [Database](#Database)
     - [Startup](#Startup)
 - [Phase3](#phase3)
-    - [Setup](#Setup)
-    - [Requirements](#Requirements)
+    - [Installation_p3](#Installation_p3)
+    - [Requirements_p3](#Requirements_p3)
+    - [Database_p3](#Database_p3)
+    - [Startup_p3](#Startup_p3)
 
 ## Phase1
 
@@ -76,9 +78,9 @@ npm install dotenv
 
 ### Database
 
-This project requires a My Sql database connection. After downloading and installing MySql, Configure your database and take note of the credentials. There is a file in the repository named schema.sql that has the configuration for the My Sql database. Simply copy and paste this code in to the My Sql terminal after logging on to the database.
+This project requires a My Sql database connection. After downloading and installing MySql, Configure your database and take note of the credentials. There is a file in the repository, in /phase2/server, named schema.sql that has the configuration for the My Sql database. Simply copy and paste this code in to the My Sql terminal after logging on to the database.
 
-4. This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
+This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
 
  ```.env
 
@@ -104,6 +106,104 @@ node server.js
 
 ```
 
+The server is now running. You can contact the app at localhost:4455/ or using your public Ip address after applying the appropriate port forwarding to your router.(Depending on your system you can hold control on the keyboard and click on the link in the terminal, after starting the server)
+
+## Phase3
+
+Phase 3 is an Express Web App, using My Sql and Json Web Token. With the authorization process each user is able to freely access the API while Unauthorized users will be redirected to the login page.
+
+### Installation_p3
+
+> **Note**
+> For easy cloning it is recommended you have git installed.
+
+Navigate to a terminal and directory you want to clone the repository in and type:
+
+ ```bash
+
+git clone https://github.com/Pmacdonald15/todo
+
+```
+
+### Requirements_p3
+
+Next open the project by running this command:
+
+``bash
+
+cd phase3
+
+```
+
+```bash
+
+cd todo
+
+```
+
+```bash
+
+npm install node
+
+```
+
+```bash
+
+npm install express
+
+```
+
+```bash
+
+npm install mysql2
+
+```
+
+```bash
+
+npm install dotenv
+
+```
+
+```bash
+
+npm install npm install cookie-parser 
+
+
+``````bash
+
+npm install npm install jsonwebtoken
+
+
+```
+
+
+### Database_p3
+
+This project requires a My Sql database connection. After downloading and installing MySql, Configure your database and take note of the credentials. There is a file in the repository, in /phase3/server, named schema.sql that has the configuration for the My Sql database. Simply copy and paste this code in to the My Sql terminal after logging on to the database.
+
+This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
+
+ ```.env
+
+MYSQL_HOST=' '
+MYSQL_USER=' '
+MYSQL_PASSWORD=' '
+MYSQL_DATABASE='todo_app_p3'
+
+```
+### Startup_p3
+
+If you are already in todo/phase3/server
+
+Then run:
+
+```bash
+
+node server.js
+
+```
+
 If you are in the root directory of the project run:
 
 ```bash
@@ -114,15 +214,9 @@ npm start
 
 The server is now running. You can contact the app at localhost:4455/ or using your public Ip address after applying the appropriate port forwarding to your router.(Depending on your system you can hold control on the keyboard and click on the link in the terminal, after starting the server)
 
-## Phase3
 
-Phase 3 is an Express Web App, using My Sql and Json Web Token. With the authorization process each user is able to freely access the API while Unauthorized users will be redirected to the login page.
 
-### Setup
 
-Thee set up for Phase 3is the same as the set up for phase 2, just replace "phase2" with "phase3"
-
-### Requirements
 > [!IMPORTANT]
 > Coming soon!!!! 
 
