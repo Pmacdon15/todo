@@ -4,7 +4,8 @@ const path = require("path");
 const getIp = require('./getIp.js');
 const os = require("os");
 const interfaces = os.networkInterfaces();
-const verifyToken = require('./auth.js');
+const { verifyToken, confirmLogin } = require('./auth.js'); // Import the functions individually
+
 const jwt = require('jsonwebtoken');
 
 
@@ -41,11 +42,11 @@ app.get("/signup", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/signup.html"));
 });
 
-app.get('/protected', verifyToken, (req, res) => {
-  res.json({ message: 'Protected route' });
-});
+// app.get('/protected', verifyToken, (req, res) => {
+//   res.json({ message: 'Protected route' });
+// });
 
-app.get("/:email", (req, res) => {
+app.get("/:email", confirmLogin , (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
 
@@ -132,14 +133,14 @@ app.get("/todo/:userEmail", async (req, res) => {
   const todos = await getTodosByUserEmail(userEmail);
 
   //console.log(verify);
-  if (verify) {
-    // If the token exists and is valid, you can proceed with handling the todos
-    res.send({ todos });
-  } else {
-    //TODO: Handle the case when the token is missing or invalid
-    //res.redirect("/");    
-    res.status(401).send("Unauthorized");
-  }
+  // if (verify) {
+  //   // If the token exists and is valid, you can proceed with handling the todos
+   res.send({ todos });
+  // } else {
+  //   //TODO: Handle the case when the token is missing or invalid
+  //   //res.redirect("/");    
+  //   res.status(401).send("Unauthorized");
+  // }
 });
 
 // POST /todo/:userEmail

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+
 function verifyToken(email) {
   return function (req, res, next) {
     return new Promise((resolve, reject) => {
@@ -22,4 +23,33 @@ function verifyToken(email) {
   };
 }
 
-module.exports = verifyToken;
+function confirmLogin(req, res, next) {
+  const email = req.params.email; // Extract the email from the URL or wherever it's located
+
+  // Check if the request is for the favicon.ico file
+  if (req.url === '/favicon.ico') {
+    next(); // Skip token verification for favicon.ico
+    return;
+  }
+
+  const userTokenCookieName = "userToken_" + email; // Replace with the correct cookie name
+  const token = req.cookies[userTokenCookieName];
+
+  if (!token) {
+    res.status(401).json({ message: 'Unauthorized' });
+  } else {
+    jwt.verify(token, 'secret_key', (err, user) => {
+      if (err) {
+        res.status(401).json({ message: 'Unauthorized' });
+      } else {
+        req.user = user;
+        next(); // If the token is verified, continue to the next middleware or route handler
+      }
+    });
+  }
+}
+
+module.exports = {
+  verifyToken: verifyToken,
+  confirmLogin: confirmLogin
+};
