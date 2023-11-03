@@ -190,6 +190,7 @@ MYSQL_HOST=' '
 MYSQL_USER=' '
 MYSQL_PASSWORD=' '
 MYSQL_DATABASE='todo_app_p3'
+SECRET_KEY='your_secret_key_here'
 
 ```
 
