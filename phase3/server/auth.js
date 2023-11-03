@@ -25,7 +25,7 @@ function verifyToken(email) {
 
 function confirmLogin(req, res, next) {
   const email = req.params.email; // Extract the email from the URL or wherever it's located
-
+  const secret_key = email;
   // Check if the request is for the favicon.ico file
   if (req.url === '/favicon.ico') {
     next(); // Skip token verification for favicon.ico
@@ -39,7 +39,7 @@ function confirmLogin(req, res, next) {
     // res.status(401).json({ message: 'Unauthorized' });
     res.redirect("/");
   } else {
-    jwt.verify(token, email , (err, user) => {
+    jwt.verify(token, secret_key , (err, user) => {
       if (err) {
         // res.status(401).json({ message: 'Unauthorized' });
         res.redirect("/");
