@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-
+// !! on its way out !!
 function verifyToken(email) {
   return function (req, res, next) {
     return new Promise((resolve, reject) => {

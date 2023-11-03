@@ -129,18 +129,9 @@ app.delete("/user/:email", async (req, res) => {
 // GET todo by userId /todo/:UserId
 app.get("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;
-  const verify = await verifyToken(userEmail)(req, res);
-  const todos = await getTodosByUserEmail(userEmail);
-
-  //console.log(verify);
-  // if (verify) {
-  //   // If the token exists and is valid, you can proceed with handling the todos
-   res.send({ todos });
-  // } else {
-  //   //TODO: Handle the case when the token is missing or invalid
-  //   //res.redirect("/");    
-  //   res.status(401).send("Unauthorized");
-  // }
+  //const verify = await verifyToken(userEmail)(req, res);
+  const todos = await getTodosByUserEmail(userEmail); 
+  res.send({ todos });  
 });
 
 // POST /todo/:userEmail
