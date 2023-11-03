@@ -9,7 +9,7 @@ $(document).ready(function () {
  
   // * Event listeners below --------------------------------------------
   // Only applies on main todo page not login or sign up
-  if (userEmail !== "login" && userEmail !== "sign up") {
+  if (userEmail !== "" && userEmail !== "sign up") {
     loadTodos(userEmail)
     form.on("submit", function (event) {
       event.preventDefault();
