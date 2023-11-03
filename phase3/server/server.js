@@ -8,13 +8,11 @@ const { confirmLogin } = require('./auth.js'); // Import the functions individua
 
 const jwt = require('jsonwebtoken');
 
-
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-
 
 // Added routes
 // For external files
@@ -42,6 +40,12 @@ app.get("/signup", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/signup.html"));
 });
 
+// app.get("/logout", (req, res) => {  
+//   console.log("user: " + req.params.email + " logged out");
+//   res.clearCookie("userToken_" + req.params.email);
+//   res.redirect("/");
+// });
+
 app.get("/:email", confirmLogin , (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
@@ -56,7 +60,9 @@ const {
   completedTodoById,
   deleteTodoById,
 } = require("./database.js");
-const e = require("express");
+
+//!! 99.9% sure this is not needed
+//const e = require("express");
 
 // * Http requests for login
 // POST /login
@@ -88,6 +94,22 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// GET /logout
+app.get("/logout/:email", async (req, res) => {
+  const email = req.params.email.replace(/:/g, ''); 
+  
+  const userTokenCookieName = `userToken_${email}`;
+  console.log("user: " + email + " logged out");
+  
+  // Clear the cookie by setting an expired date
+  res.cookie( userTokenCookieName, "", {
+    expires: new Date(0), // Set the expiration date to a past date
+    path: "/", // Make sure the path matches the one used when setting the cookie
+  });
+
+  res.redirect("/");
+});
+
 // TODO: Error handling for all requests
 // * Http requests for user
 // GET user by id /user/:id
@@ -96,14 +118,6 @@ app.get("/user/:email", async (req, res) => {
   const user = await getUserByEmail(email);
   res.json({ user });
 });
-
-// Create user
-// app.post("/user", async (req, res) => {
-//   const { email, first_name, password } = req.body;
-//   const user = await createUser(email, first_name, password);
-//   res.redirect("/");
-//   //res.status(201).json({ user });
-// });
 
 // Create user
 app.post("/user", async (req, res) => {
@@ -127,7 +141,6 @@ app.delete("/user/:email", async (req, res) => {
 });
 
 // * Http requests for todo
-
 // GET todo by userId /todo/:UserId
 app.get("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;

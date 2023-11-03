@@ -15,7 +15,12 @@ $(document).ready(function () {
       event.preventDefault();
       addTodo(userEmail);
     });
+    
+    $("#logoutLink").attr("href", `/logout/:${userEmail}`);
+
   }  
+  
+  
 
   // * Functions below --------------------------------------------------
   function getUserEmail() {
