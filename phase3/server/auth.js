@@ -39,7 +39,7 @@ function confirmLogin(req, res, next) {
     // res.status(401).json({ message: 'Unauthorized' });
     res.redirect("/");
   } else {
-    jwt.verify(token, 'secret_key', (err, user) => {
+    jwt.verify(token, email , (err, user) => {
       if (err) {
         // res.status(401).json({ message: 'Unauthorized' });
         res.redirect("/");

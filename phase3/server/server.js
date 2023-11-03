@@ -62,6 +62,7 @@ const {
   completedTodoById,
   deleteTodoById,
 } = require("./database.js");
+const e = require("express");
 
 // HTTP requests methods
 
@@ -72,11 +73,12 @@ const {
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await getUserByEmail(email);
-  const token = jwt.sign({ user: email }, 'secret_key');
+  const secret_key = email;
   if (user && user.password === password) {
-    // Redirect to the user's profile page with their email
-    console.log("user: " + email + " logged in");
+    // Use the email as both the payload and the secret key for signing the JWT
+    const token = jwt.sign({ user: email }, secret_key );
 
+    // Create a unique cookie name for each user based on their email
     const userTokenCookieName = `userToken_${email}`;
 
     // Use the generated JWT token as the token value
@@ -89,12 +91,16 @@ app.post("/login", async (req, res) => {
       path: '/', // Specify the cookie's path
     });
 
+    // Redirect to the user's profile page with their email
+    console.log("user: " + email + " logged in");
     res.redirect("/" + email);
   } else {
     // Redirect to the login page
     res.redirect("/");
   }
 });
+
+
 
 
 

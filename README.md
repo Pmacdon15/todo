@@ -175,7 +175,6 @@ npm install npm install cookie-parser
 
 npm install npm install jsonwebtoken
 
-
 ```
 
 
@@ -193,6 +192,10 @@ MYSQL_PASSWORD=' '
 MYSQL_DATABASE='todo_app_p3'
 
 ```
+
+> [!IMPORTANT]
+>The .env file should be located inside of root directory of the project.
+
 ### Startup_p3
 
 If you are already in todo/phase3/server
@@ -218,6 +221,4 @@ The server is now running. You can contact the app at localhost:4455/ or using y
 
 
 
-> [!IMPORTANT]
-> Coming soon!!!! 
 
