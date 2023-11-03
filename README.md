@@ -129,7 +129,7 @@ git clone https://github.com/Pmacdonald15/todo
 
 Next open the project by running this command:
 
-``bash
+```bash
 
 cd phase3
 
