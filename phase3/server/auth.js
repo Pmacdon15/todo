@@ -36,11 +36,13 @@ function confirmLogin(req, res, next) {
   const token = req.cookies[userTokenCookieName];
 
   if (!token) {
-    res.status(401).json({ message: 'Unauthorized' });
+    // res.status(401).json({ message: 'Unauthorized' });
+    res.redirect("/");
   } else {
     jwt.verify(token, 'secret_key', (err, user) => {
       if (err) {
-        res.status(401).json({ message: 'Unauthorized' });
+        // res.status(401).json({ message: 'Unauthorized' });
+        res.redirect("/");
       } else {
         req.user = user;
         next(); // If the token is verified, continue to the next middleware or route handler
