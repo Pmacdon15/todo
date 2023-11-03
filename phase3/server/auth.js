@@ -23,7 +23,7 @@ function confirmLogin(req, res, next) {
         res.redirect("/");
       } else {
         req.user = user;
-        console.log("from confirm " + key);
+        //console.log("from confirm " + key);
         next(); // If the token is verified, continue to the next middleware or route handler
       }
     });

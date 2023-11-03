@@ -60,8 +60,6 @@ const e = require("express");
 
 // * Http requests for login
 // POST /login
-// If the user is authenticated, create a unique token for them
-
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await getUserByEmail(email);
@@ -90,10 +88,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
-
-
-
 // TODO: Error handling for all requests
 // * Http requests for user
 // GET user by id /user/:id
@@ -104,11 +98,23 @@ app.get("/user/:email", async (req, res) => {
 });
 
 // Create user
+// app.post("/user", async (req, res) => {
+//   const { email, first_name, password } = req.body;
+//   const user = await createUser(email, first_name, password);
+//   res.redirect("/");
+//   //res.status(201).json({ user });
+// });
+
+// Create user
 app.post("/user", async (req, res) => {
   const { email, first_name, password } = req.body;
-  const user = await createUser(email, first_name, password);
-  res.redirect("/");
-  //res.status(201).json({ user });
+  try {
+    const user = await createUser(email, first_name, password);
+    res.redirect("/"); // Redirect to the login page
+  } catch (error) {
+    console.log(error.message);
+    res.redirect("/signup"); // Redirect to the signup page
+  }
 });
 
 // Delete user by id /user/:id
