@@ -170,7 +170,7 @@ npm install dotenv
 npm install npm install cookie-parser 
 
 
-``````bash
+```bash
 
 npm install npm install jsonwebtoken
 
