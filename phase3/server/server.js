@@ -73,7 +73,8 @@ const e = require("express");
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await getUserByEmail(email);
-  const secret_key = email;
+  const secret_key = process.env.SECRET_KEY;
+  secret_key + email;
   if (user && user.password === password) {
     // Use the email as both the payload and the secret key for signing the JWT
     const token = jwt.sign({ user: email }, secret_key );

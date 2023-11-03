@@ -25,7 +25,8 @@ function verifyToken(email) {
 
 function confirmLogin(req, res, next) {
   const email = req.params.email; // Extract the email from the URL or wherever it's located
-  const secret_key = email;
+  const secret_key = process.env.SECRET_KEY;
+  secret_key + email;
   // Check if the request is for the favicon.ico file
   if (req.url === '/favicon.ico') {
     next(); // Skip token verification for favicon.ico
