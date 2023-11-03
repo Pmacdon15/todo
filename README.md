@@ -13,6 +13,8 @@ off the last phase but with users and a login.
     - [Database](#Database)
     - [Startup](#Startup)
 - [Phase3](#phase3)
+    - [Setup](#Setup)
+    - [Requirements](#Requirements)
 
 ## Phase1
 
@@ -114,6 +116,13 @@ The server is now running. You can contact the app at localhost:4455/ or using y
 
 ## Phase3
 
+Phase 3 is an Express Web App, using My Sql and Json Web Token. With the authorization process each user is able to freely access the API while Unauthorized users will be redirected to the login page.
+
+### Setup
+
+Thee set up for Phase 3is the same as the set up for phase 2, just replace "phase2" with "phase3"
+
+### Requirements
 > [!IMPORTANT]
 > Coming soon!!!! 
 
