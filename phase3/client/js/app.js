@@ -16,11 +16,10 @@ $(document).ready(function () {
       addTodo(userEmail);
     });
     
+    // Set user email in logout link
     $("#logoutLink").attr("href", `/logout/:${userEmail}`);
 
   }  
-  
-  
 
   // * Functions below --------------------------------------------------
   function getUserEmail() {
