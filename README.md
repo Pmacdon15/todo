@@ -51,30 +51,9 @@ cd todo
 
 ```bash
 
-npm install node
+npm install
 
 ```
-
-```bash
-
-npm install express
-
-```
-
-```bash
-
-npm install mysql2
-
-```
-
-```bash
-
-npm install dotenv
-
-```
-
-> [!IMPORTANT]
-> All modules listed above are required for functionality.
 
 ### Database
 
@@ -131,52 +110,15 @@ Next open the project by running this command:
 
 ```bash
 
-cd phase3
-
-```
-
-```bash
-
 cd todo
 
 ```
 
 ```bash
 
-npm install node
+npm install
 
 ```
-
-```bash
-
-npm install express
-
-```
-
-```bash
-
-npm install mysql2
-
-```
-
-```bash
-
-npm install dotenv
-
-```
-
-```bash
-
-npm install npm install cookie-parser 
-
-```
-
-```bash
-
-npm install npm install jsonwebtoken
-
-```
-
 
 ### Database_p3
 
@@ -185,7 +127,7 @@ This project requires a My Sql database connection. After downloading and instal
 This project Requires a .env file setup in the following manner to connect to the database(using the credentials that you set up the database with): 
 
  ```.env
-
+ 
 MYSQL_HOST=' '
 MYSQL_USER=' '
 MYSQL_PASSWORD=' '
