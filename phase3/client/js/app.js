@@ -17,7 +17,7 @@ $(document).ready(function () {
     });
     
     // Set user email in logout link
-    $("#logoutLink").attr("href", `/logout/:${userEmail}`);
+    $("#logoutLink").attr("href", `/logout/${userEmail}`);
 
   }  
 

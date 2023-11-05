@@ -96,7 +96,7 @@ app.post("/login", async (req, res) => {
 
 // GET /logout
 app.get("/logout/:email", async (req, res) => {
-  const email = req.params.email.replace(/:/g, ''); 
+  const email = req.params.email; 
   
   const userTokenCookieName = `userToken_${email}`;
   console.log("user: " + email + " logged out");

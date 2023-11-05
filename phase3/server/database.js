@@ -35,16 +35,6 @@ module.exports = {
     return rows[0];
   },
 
-  // async createUser(email, first_name, password) {
-  //   const result = await pool.query(
-  //     "INSERT INTO users (email, first_name, password) VALUES (?, ?, ?)",
-  //     [email, first_name, password]
-  //   );
-  //   const id = result[0].insertId;
-  //   console.log("user id: " + id + " created");
-  //   return module.exports.getUserByEmail(email);
-  // // },
-
   async createUser(email, first_name, password) {
     // Check if the email already exists in the database
     const existingUser = await module.exports.getUserByEmail(email);

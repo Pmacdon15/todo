@@ -9,6 +9,7 @@
     "nodemon": "^3.0.1"
   },
   "scripts": {
-    "start": "node phase3/server/server.js"
+    "start": "node phase3/server/server.js",
+    "dev": "nodemon phase3/server/server.js"
   }
 }
