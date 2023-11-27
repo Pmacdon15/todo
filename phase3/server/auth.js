@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const path = require("path");
 
@@ -15,13 +15,12 @@ class AuthManager {
     return token;
   }
 
-  confirmLogin(req, res, next) {
-    const email = req.params.email; // Extract the email from the URL or wherever it's located
+  confirmLogin(email, req, res, next) {
     const secret_key = process.env.SECRET_KEY;
     const key = secret_key + email;
 
     // Check if the request is for the favicon.ico file
-    if (req.url === '/favicon.ico') {
+    if (req.url === "/favicon.ico") {
       next(); // Skip token verification for favicon.ico
       return;
     }

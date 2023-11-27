@@ -31,8 +31,11 @@ app.get("/signup", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/signup.html"));
 });
 
-app.get("/:email", AuthManager.confirmLogin, (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/html/todo.html"));
+app.get("/:email", (req, res) => {
+  const email = req.params.email;
+  AuthManager.confirmLogin(email, req, res, () => {
+    res.sendFile(path.join(__dirname, "../client/html/todo.html"));
+  });
 });
 
 // Added functions from database.js
