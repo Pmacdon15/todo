@@ -1,35 +1,26 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const getIp = require('./getIp.js');
+const getIp = require("./getIp.js");
 const os = require("os");
 const interfaces = os.networkInterfaces();
-const { confirmLogin } = require('./auth.js'); // Import the functions individually
+// const { createToken , confirmLogin } = require('./auth.js'); // Import the functions individually
+const AuthManager = require("./auth.js");
+//const jwt = require('jsonwebtoken');
 
-const jwt = require('jsonwebtoken');
-
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
 // Added routes
 // For external files
-app.use(
-  "/client",
-  express.static(path.join(__dirname, "../client/"))
-);
+app.use("/client", express.static(path.join(__dirname, "../client/")));
 
-app.use(
-  "/js/",
-  express.static(path.join(__dirname, "../client/js/"))
-);
+app.use("/js/", express.static(path.join(__dirname, "../client/js/")));
 
-app.use(
-  "/css/",
-  express.static(path.join(__dirname, "../client/css/"))
-);
+app.use("/css/", express.static(path.join(__dirname, "../client/css/")));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/login.html"));
@@ -40,18 +31,12 @@ app.get("/signup", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/signup.html"));
 });
 
-// app.get("/logout", (req, res) => {  
-//   console.log("user: " + req.params.email + " logged out");
-//   res.clearCookie("userToken_" + req.params.email);
-//   res.redirect("/");
-// });
-
-app.get("/:email", confirmLogin , (req, res) => {
+app.get("/:email", AuthManager.confirmLogin, (req, res) => {
   res.sendFile(path.join(__dirname, "../client/html/todo.html"));
 });
 
 // Added functions from database.js
-const {  
+const {
   createUser,
   getUserByEmail,
   deleteUserByEmail,
@@ -61,28 +46,19 @@ const {
   deleteTodoById,
 } = require("./database.js");
 
-//!! 99.9% sure this is not needed
-//const e = require("express");
-
 // * Http requests for login
 // POST /login
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await getUserByEmail(email);
-  const secret_key = process.env.SECRET_KEY;
-  const key = secret_key + email;
   if (user && user.password === password) {
-    // Use the email as both the payload and the secret key for signing the JWT
-    const token = jwt.sign({ user: email }, key );
-
-    // Create a unique cookie name for each user based on their email
     const userTokenCookieName = `userToken_${email}`;
-
+    const token = AuthManager.createToken(email);
     // Set the cookie with the userTokenCookieName and the token value
     res.cookie(userTokenCookieName, token, {
       httpOnly: true,
       maxAge: 3600000, // Set the cookie's maximum age in milliseconds
-      path: '/', // Specify the cookie's path
+      path: "/", // Specify the cookie's path
     });
 
     // Redirect to the user's profile page with their email
@@ -96,13 +72,11 @@ app.post("/login", async (req, res) => {
 
 // GET /logout
 app.get("/logout/:email", async (req, res) => {
-  const email = req.params.email; 
-  
+  const email = req.params.email;
   const userTokenCookieName = `userToken_${email}`;
   console.log("user: " + email + " logged out");
-  
   // Clear the cookie by setting an expired date
-  res.cookie( userTokenCookieName, "", {
+  res.cookie(userTokenCookieName, "", {
     expires: new Date(0), // Set the expiration date to a past date
     path: "/", // Make sure the path matches the one used when setting the cookie
   });
@@ -135,8 +109,11 @@ app.post("/user", async (req, res) => {
 app.delete("/user/:email", async (req, res) => {
   const email = req.params.email;
   const result = await deleteUserByEmail(email);
-  if (result.affectedRows === 1) {console.log("user email: " + email + " deleted")}
-  else {console.log("user email: " + email + " not found")}
+  if (result.affectedRows === 1) {
+    console.log("user email: " + email + " deleted");
+  } else {
+    console.log("user email: " + email + " not found");
+  }
   res.status(200).json({ result });
 });
 
@@ -145,8 +122,8 @@ app.delete("/user/:email", async (req, res) => {
 app.get("/todo/:userEmail", async (req, res) => {
   const userEmail = req.params.userEmail;
   //const verify = await verifyToken(userEmail)(req, res);
-  const todos = await getTodosByUserEmail(userEmail); 
-  res.send({ todos });  
+  const todos = await getTodosByUserEmail(userEmail);
+  res.send({ todos });
 });
 
 // POST /todo/:userEmail
@@ -175,7 +152,7 @@ app.delete("/todo/:userEmail/:id", async (req, res) => {
   const id = req.params.id;
   const userEmail = req.params.userEmail;
   const result = await deleteTodoById(id);
-  const todos = await getTodosByUserEmail(userEmail)
+  const todos = await getTodosByUserEmail(userEmail);
   console.log("todo id: " + id + " deleted");
   res.status(200).json({ result, todos });
 });
@@ -211,6 +188,5 @@ app.listen(4455, () => {
         \x1b[33m \u{1F5F9}\x1b[0m http://localhost:4455
         \x1b[33m \u{1F5F9}\x1b[0m http://${localIpAddress}:4455
         
-        \x1b[0m`);        
+        \x1b[0m`);
 });
-
